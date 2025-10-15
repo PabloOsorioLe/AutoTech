@@ -1,4 +1,4 @@
-import { NgModule, isDevMode,LOCALE_ID } from '@angular/core';
+import { NgModule, isDevMode, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -12,14 +12,13 @@ import { AppRoutingModule } from './app-routing.module';
 
 // Componentes principales
 import { ProductosComponent } from './pages/productos/productos.component';
+import { VentasComponent } from './pages/ventas/ventas.component';
+import { VentasDetallesComponent } from './pages/ventas-detalles/ventas-detalles.component';
 
 // Componentes reutilizables
 import { NavbarComponent } from './components/navbar/navbar.component';
 
-// ✅ FALTABA IMPORTAR LOGIN COMPONENT
-import { LoginComponent } from './auth/login/login.component'; // ajusta si está en otra ruta
-
-// Módulo de autenticación
+// Módulo de autenticación (debe EXPORTAR LoginComponent)
 import { AuthModule } from './auth/auth.module';
 
 // Angular Material
@@ -38,8 +37,6 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 // PWA
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { VentasComponent } from './pages/ventas/ventas.component';
-import { VentasDetallesComponent } from './pages/ventas-detalles/ventas-detalles.component';
 
 @NgModule({
   declarations: [
@@ -47,18 +44,17 @@ import { VentasDetallesComponent } from './pages/ventas-detalles/ventas-detalles
     NavbarComponent,
     ProductosComponent,
     VentasComponent,
-    VentasDetallesComponent,
+    VentasDetallesComponent
+    // NO declares LoginComponent aquí si lo tienes en AuthModule
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AuthModule,
-    FormsModule,
-    ReactiveFormsModule,
+    AuthModule,             // Importa el módulo que EXPORTA LoginComponent
+    FormsModule,            // Template-Driven Forms (por si lo usan otros componentes)
+    ReactiveFormsModule,    // Solo si usas también forms reactivos
     HttpClientModule,
     AppRoutingModule,
-
-    // Angular Material
     MatPaginatorModule,
     MatTableModule,
     MatSelectModule,
@@ -67,18 +63,14 @@ import { VentasDetallesComponent } from './pages/ventas-detalles/ventas-detalles
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-
-    // Flatpickr
     FlatpickrModule.forRoot(),
-
-    // PWA
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000'
     })
   ],
   providers: [
-      { provide: LOCALE_ID, useValue: 'es-CL' }
+    { provide: LOCALE_ID, useValue: 'es-CL' }
   ],
   bootstrap: [AppComponent]
 })
