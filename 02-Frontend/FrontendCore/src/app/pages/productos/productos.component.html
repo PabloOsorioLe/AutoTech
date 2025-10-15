@@ -1,0 +1,181 @@
+<!-- ANIMACIÓN DE CARGA -->
+<div *ngIf="cargando" class="loading-container">
+  <img src="assets/gifs/loading.gif" alt="Cargando..." width="70" height="70">
+  <p class="text-secondary mt-2">Cargando productos...</p>
+</div>
+
+<!-- CONTENEDOR PRINCIPAL -->
+<div *ngIf="!cargando" class="productos-wrapper container-fluid px-2 px-md-5">
+
+  <!-- MODAL para crear/editar -->
+  <div class="modal fade" id="modalProducto" tabindex="-1" aria-labelledby="modalProductoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md modal-dialog-centered">
+      <div class="modal-content border-0 shadow rounded-4 overflow-hidden">
+        <div class="modal-header py-2 px-3 justify-content-center text-white"
+          style="background: linear-gradient(135deg, #4e54c8, #8f94fb);">
+          <h5 class="modal-title mb-0 text-center w-100" id="modalProductoLabel">
+            {{ productoEditando ? 'Editar Producto' : 'Nuevo Producto' }}
+          </h5>
+          <button type="button" class="btn-close btn-close-white position-absolute end-0 me-3" data-bs-dismiss="modal"
+            aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body p-3">
+          <form [formGroup]="productoForm" (ngSubmit)="guardarProducto()">
+            <div class="row g-2 align-items-end">
+
+              <div class="col-12 col-md-6">
+                <label class="form-label mb-1">Nombre del producto</label>
+                <input type="text" class="form-control form-control-sm" formControlName="nombre" required>
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Categoría</label>
+                <select class="form-select form-select-sm" formControlName="categoriaID" required>
+                  <option *ngFor="let c of categorias" [value]="c.categoriaID">{{ c.nombreCategoria }}</option>
+                </select>
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Código</label>
+                <input type="text" class="form-control form-control-sm" formControlName="codigo">
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Precio</label>
+                <input type="text" class="form-control form-control-sm" formControlName="precio"
+                  (input)="formatearPrecio($event)" (blur)="formatearPrecio($event, true)">
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Stock</label>
+                <input type="number" class="form-control form-control-sm" formControlName="stock" min="0"
+                  (input)="verificarStock()">
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Ubicación</label>
+                <input type="text" class="form-control form-control-sm" formControlName="ubicacion">
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Proveedor</label>
+                <select class="form-select form-select-sm" formControlName="proveedor">
+                  <option *ngFor="let p of proveedores" [value]="p">{{ p }}</option>
+                </select>
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Fecha ingreso</label>
+                <input type="date" class="form-control form-control-sm" formControlName="fechaIngreso">
+              </div>
+
+              <div class="col-6 col-sm-4 col-md-3">
+                <label class="form-label mb-1">Imagen</label>
+                <input type="file" class="form-control form-control-sm" (change)="onFileChange($event)">
+              </div>
+
+              <div class="col-12">
+                <label class="form-label mb-1">Descripción</label>
+                <textarea class="form-control form-control-sm no-resize" rows="2" formControlName="descripcion"
+                  placeholder="Opcional"></textarea>
+              </div>
+
+              <div class="col-12 text-center mt-2">
+                <button class="btn btn-primary btn-sm px-4" type="submit" [disabled]="productoForm.invalid">
+                  Guardar Producto
+                </button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TABLA DESKTOP -->
+  <div class="tabla-productos mt-4 p-3 rounded-4 shadow-sm bg-white d-none d-md-block">
+    <div class="table-responsive tabla-scroll">
+      <table class="table table-bordered table-hover align-middle text-center table-sm">
+        <thead class="table-header">
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Categoría</th>
+            <th>Código</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Proveedor</th>
+            <th>Ubicación</th>
+            <th>Ingreso</th>
+            <th>
+              <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalProducto"
+                (click)="resetFormulario()">
+                <i class="bi bi-plus-lg"></i> Nuevo
+              </button>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of productosPaginados">
+            <td>{{ p.id }}</td>
+            <td>{{ p.nombre }}</td>
+            <td>{{ obtenerNombreCategoria(p.categoriaID) }}</td>
+            <td>{{ p.codigo }}</td>
+            <td>{{ p.precio | number:'1.0-0' }}</td>
+            <td>{{ p.stock }}</td>
+            <td>{{ p.proveedor }}</td>
+            <td>{{ p.ubicacion }}</td>
+            <td>{{ p.fechaIngreso | date:'dd-MM-yyyy' }}</td>
+            <td>
+              <div class="d-flex justify-content-center gap-2">
+                <button class="btn btn-outline-primary btn-sm" (click)="editarProducto(p)">✏️</button>
+                <button class="btn btn-outline-danger btn-sm" (click)="eliminarProducto(p)">🗑️</button>
+              </div>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- CARDS MÓVIL -->
+  <div class="d-md-none mt-4">
+    <div *ngFor="let p of productosPaginados" class="card mb-3 shadow-sm rounded-4">
+      <div class="card-body py-2 px-3">
+        <h6 class="fw-bold mb-1">{{ p.nombre }}</h6>
+        <p class="mb-1"><small>Categoría:</small> {{ obtenerNombreCategoria(p.categoriaID) }}</p>
+        <p class="mb-1"><small>Precio:</small> {{ p.precio | number:'1.0-0' }} /
+          <small>Stock:</small> {{ p.stock }}
+        </p>
+        <p class="mb-1"><small>Proveedor:</small> {{ p.proveedor }}</p>
+
+        <div class="d-flex justify-content-start gap-2 mt-2">
+          <button class="btn btn-outline-primary btn-sm" (click)="editarProducto(p)">✏️</button>
+          <button class="btn btn-outline-danger btn-sm" (click)="eliminarProducto(p)">🗑️</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE MOBILE -->
+    <button class="btn btn-success btn-sm btn-flotante d-md-none" data-bs-toggle="modal" data-bs-target="#modalProducto"
+      (click)="resetFormulario()">
+      <i class="bi bi-plus-lg"></i>
+    </button>
+  </div>
+
+  <!-- PAGINACIÓN -->
+  <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
+    <button class="btn btn-outline-secondary btn-sm" [disabled]="paginaActual === 1"
+      (click)="cambiarPagina('anterior')">
+      ⬅ Anterior
+    </button>
+    <span class="fw-semibold">Página {{ paginaActual }} de {{ totalPaginas }}</span>
+    <button class="btn btn-outline-secondary btn-sm" [disabled]="paginaActual === totalPaginas"
+      (click)="cambiarPagina('siguiente')">
+      Siguiente ➡
+    </button>
+  </div>
+
+</div>

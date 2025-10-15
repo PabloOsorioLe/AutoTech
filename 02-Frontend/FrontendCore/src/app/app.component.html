@@ -1,0 +1,8 @@
+<ng-container *ngIf="mostrarLayout; else soloLogin">
+  <app-navbar></app-navbar>
+  <router-outlet></router-outlet>
+</ng-container>
+
+<ng-template #soloLogin>
+  <router-outlet></router-outlet>
+</ng-template>
