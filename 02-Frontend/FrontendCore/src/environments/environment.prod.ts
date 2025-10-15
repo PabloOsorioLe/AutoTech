@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://inventorycloud.onrender.com/api'
+  apiUrl: 'https://AutoTech.onrender.com/api'
 };
