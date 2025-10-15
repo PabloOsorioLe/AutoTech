@@ -1,0 +1,33 @@
+# .NET
+**/bin/
+**/obj/
+.vs/
+*.dll
+*.pdb
+*.exe
+
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.sln.ide
+
+# Angular
+**/dist/
+**/node_modules/
+
+# Temporary and logs
+*.env
+*.log
+*.tmp
+*.swp
+
+# IDE/config
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# JS source-maps
+**/*.js.map

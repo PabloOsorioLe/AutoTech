@@ -1,0 +1,74 @@
+<nav *ngIf="menuVisible" class="navbar navbar-expand-lg navbar-dark shadow-sm custom-navbar fixed-top">
+  <div class="w-100 px-3 d-flex align-items-center justify-content-between">
+    <button class="navbar-toggler" type="button" (click)="toggleMenu()" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <span class="menu-title-mobile d-block d-lg-none text-white fw-bold text-center flex-grow-1">
+      <i class="bi {{ iconoActual }} me-1"></i>{{ tituloActual }}
+    </span>
+
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+      <ul class="navbar-nav">
+        <!-- Enlace a Ventas -->
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center"
+            routerLink="/ventas"
+            routerLinkActive="activo"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="cerrarMenu()">
+            <i class="bi bi-box-seam me-1"></i> Ventas
+          </a>
+        </li>
+
+        <!-- Enlace a Productos -->
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center"
+            routerLink="/productos"
+            routerLinkActive="activo"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="cerrarMenu()">
+            <i class="bi bi-basket me-1"></i> Productos
+          </a>
+        </li>
+
+        <!-- Enlace a Detalles de la Venta -->
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center"
+            [routerLink]="'/venta/1'"
+            routerLinkActive="activo"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="cerrarMenu()">
+            <i class="bi bi-file-earmark me-1"></i> Detalles Venta
+          </a>
+        </li>
+
+        <!-- Enlace para cerrar sesión -->
+        <li class="nav-item">
+          <a class="nav-link d-flex align-items-center text-danger fw-bold"
+            href="#"
+            (click)="cerrarSesion($event)">
+            <i class="bi bi-arrow-left-circle me-1"></i> Salir
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Modal de Login -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="modal-header bg-primary text-white py-2 px-3">
+        <h5 class="modal-title mb-0" id="loginModalLabel">
+          <i class="bi bi-box-arrow-in-right me-1"></i> Iniciar sesión
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body p-0">
+        <app-login></app-login>
+      </div>
+    </div>
+  </div>
+</div>
