@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   ngOnInit(): void {
     console.log('[login] ngOnInit');
+    console.log('[login] antes del forkJoin:', environment.apiUrl);
+
     forkJoin({
       timer: timer(1500),
       backend: this.http.get(`${environment.apiUrl}/auth/warmup`)
@@ -38,10 +40,14 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
       next: () => {
         this.cargandoVisible = false;
         console.log('[login] loader terminado, se muestra input y btn: cargandoVisible =', this.cargandoVisible);
+        console.log('[login] cargandoVisible =', this.cargandoVisible);
+
       },
       error: (err) => {
         this.cargandoVisible = false;
         console.log('[login] error backend warmup loader, cargandoVisible =', this.cargandoVisible, err);
+        console.log('[login] cargandoVisible =', this.cargandoVisible);
+
       }
     });
   }

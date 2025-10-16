@@ -1,34 +1,45 @@
+/* Fondo general */
 body {
   background: linear-gradient(120deg, #dbe5f3 0%, #f7fafc 100%);
   font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
+/* Fondo decorativo del login */
 .login-bg {
   position: fixed;
-  z-index: 0;
   inset: 0;
-  background:
-    linear-gradient(120deg, #b2becd 0%, #e8eaf6 100%);
+  background: linear-gradient(120deg, #b2becd 0%, #e8eaf6 100%);
   opacity: 0.32;
+  z-index: 0;
+  pointer-events: none; /* ✅ evita bloquear clics */
 }
 
+/* Contenedor centrado */
 .login-center-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  z-index: 1; /* ✅ asegura estar por encima del fondo */
 }
 
+/* Tarjeta del login */
 .login-card {
   background: #f9fbfc;
   border-radius: 18px;
-  box-shadow: 0 4px 24px 0 rgba(34,57,123,0.14);
+  box-shadow: 0 4px 24px 0 rgba(34, 57, 123, 0.14);
   padding: 2.2rem 2.2rem 1.4rem;
   min-width: 340px;
   max-width: 400px;
   border: 2px solid #375a7f;
+  position: relative;
+  z-index: 2;
 }
 
+/* Encabezado */
 .login-header h2 {
   color: #375a7f;
   font-weight: 800;
@@ -43,21 +54,22 @@ body {
   font-style: italic;
 }
 
+/* Logo */
 .login-logo {
-  height: 44px;
+  height: 48px;
   margin-bottom: 1rem;
   border-radius: 16px;
   background: none;
-  filter: drop-shadow(0 0 2px #1ecc27);
+  filter: drop-shadow(0 0 3px #1ecc27);
 }
 
-/* Inputs: fondo blanco y borde azul al enfocar */
+/* Inputs */
 .form-control {
   background: #fff;
   border: 1.5px solid #a9bdd0;
   color: #27394e;
   border-radius: 10px;
-  transition: border .3s, background .2s;
+  transition: border 0.3s, background 0.2s;
 }
 
 .form-control:focus {
@@ -65,7 +77,7 @@ body {
   background: #eaf1fc;
 }
 
-/* Botón principal sobrio */
+/* Botón principal */
 .btn-login {
   background: linear-gradient(90deg, #375a7f 70%, #1ecc27 100%);
   border: none;
@@ -75,29 +87,30 @@ body {
   padding: 0.7rem 1rem;
   letter-spacing: 0.04em;
   color: #fff;
-  box-shadow: 0 2px 10px rgba(40,110,220,0.07);
+  box-shadow: 0 2px 10px rgba(40, 110, 220, 0.07);
+  transition: background 0.25s, transform 0.15s;
 }
 
-/* Hover y focus más oscuro */
-.btn-login:hover, .btn-login:focus {
+.btn-login:hover,
+.btn-login:focus {
   background: #27406a;
   color: #fff;
+  transform: scale(1.02);
 }
 
-/* Grupo de contraseña */
-.input-group {
-  position: relative;
-}
+/* Grupo contraseña */
+.input-group,
 .password-group {
   position: relative;
   width: 100%;
 }
+
 .password-input {
   width: 100%;
   padding-right: 40px;
 }
 
-/* Botón ojo integrado */
+/* Botón "ojo" de contraseña */
 .btn-toggle-pass {
   position: absolute;
   top: 50%;
@@ -116,23 +129,44 @@ body {
   color: #27394e;
 }
 
+/* Loader */
 .login-loader {
   position: fixed;
   top: 0; left: 0;
   width: 100vw; height: 100vh;
-  background: rgba(203,221,244,0.22);
-  display: flex; align-items: center; justify-content: center;
+  background: rgba(203, 221, 244, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   z-index: 2000;
 }
+
 .loader-img {
   width: 56px;
   animation: rotate 1.2s linear infinite;
 }
+
 @keyframes rotate {
-  0%   { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
-@media (max-width:600px) {
-  .login-card { min-width: unset; width: 96vw; max-width: 98vw; padding: 1rem 0.9rem 0.9rem;}
+/* Responsivo */
+@media (max-width: 600px) {
+  .login-card {
+    min-width: unset;
+    width: 96vw;
+    max-width: 98vw;
+    padding: 1rem 0.9rem 0.9rem;
+  }
+
+  .login-logo {
+    height: 40px;
+  }
+}
+
+/* Contenedor general del login */
+.login-container {
+  position: relative;
+  z-index: 10;
 }
