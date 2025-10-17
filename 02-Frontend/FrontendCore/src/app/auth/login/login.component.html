@@ -2,7 +2,7 @@
 
 <!-- Loader inicial en overlay, solo mientras cargandoVisible es true -->
 <div class="login-loader" *ngIf="cargandoVisible">
-  <img src="assets/icons/AutoTech-128x128.png" alt="Cargando..." class="loader-img"/>
+  <img src="assets/icons/AutoTech-128x128.png" alt="Cargando..." class="loader-img" />
 </div>
 
 <!-- Login solo se muestra cuando termina la precarga -->
@@ -16,31 +16,15 @@
     <form (ngSubmit)="iniciarSesion()" #loginForm="ngForm" autocomplete="off" novalidate>
       <div class="mb-3">
         <label for="usuario" class="form-label">Usuario</label>
-        <input
-          type="text"
-          id="usuario"
-          name="usuario"
-          class="form-control"
-          required
-          [(ngModel)]="usuario"
-          autocomplete="username"
-          placeholder="Ingrese su usuario"
-          (focus)="scrollToInput($event)"
-          #usuarioInput>
+        <input type="text" id="usuario" name="usuario" class="form-control" required [(ngModel)]="usuario"
+          autocomplete="username" placeholder="Ingrese su usuario" (focus)="scrollToInput($event)" #usuarioInput>
       </div>
       <div class="mb-3">
         <label for="password" class="form-label">Contraseña</label>
         <div class="input-group password-group">
-          <input
-            [type]="mostrarPassword ? 'text' : 'password'"
-            id="password"
-            name="password"
-            class="form-control password-input"
-            required
-            [(ngModel)]="password"
-            autocomplete="current-password"
-            placeholder="Ingrese su contraseña"
-            (focus)="scrollToInput($event)">
+          <input [type]="mostrarPassword ? 'text' : 'password'" id="password" name="password"
+            class="form-control password-input" required [(ngModel)]="password" autocomplete="current-password"
+            placeholder="Ingrese su contraseña" (focus)="scrollToInput($event)">
           <button type="button" class="btn-toggle-pass" (click)="mostrarPassword = !mostrarPassword" tabindex="-1">
             <i class="bi" [ngClass]="mostrarPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
           </button>
@@ -54,6 +38,10 @@
       </div>
       <div class="text-center">
         <small class="text-muted">© 2025 AutoTech</small>
+      </div>
+      <!-- Loader durante validación de login -->
+      <div class="login-loader" *ngIf="cargando && !cargandoVisible">
+        <img src="assets/icons/AutoTech-128x128.png" alt="Cargando..." class="loader-img" />
       </div>
     </form>
   </div>

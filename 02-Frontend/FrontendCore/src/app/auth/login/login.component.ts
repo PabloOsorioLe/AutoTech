@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    // Foco automático al input después de quitar el loader
     if (!this.cargandoVisible && !this.firstFocus && this.usuarioInputRef) {
       this.usuarioInputRef.nativeElement.focus();
       this.firstFocus = true;
@@ -60,7 +59,6 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   iniciarSesion(): void {
-    console.log('[login] iniciarSesion() usuario:', this.usuario, 'password:', this.password);
     if (!this.usuario || !this.password) {
       Swal.fire({
         icon: 'warning',
@@ -71,13 +69,15 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
       return;
     }
 
+    this.cargando = true; // <--- activar loader
+
     const loginPayload = { rut: this.usuario, password: this.password };
     const authAsAny = this.authService as any;
 
     if (authAsAny && typeof authAsAny.login === 'function') {
-      console.log('[login] autenticando via AuthService');
       authAsAny.login(loginPayload).subscribe({
         next: (res: any) => {
+          this.cargando = false;
           if (res && res.token) {
             if (typeof authAsAny.guardarToken === 'function') {
               authAsAny.guardarToken(res.token);
@@ -94,18 +94,21 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
           this.onLoginSuccess();
         },
         error: (err: any) => {
+          this.cargando = false;
           this.onLoginError(err);
         }
       });
       return;
     }
 
-    // Llamada directa en caso de no usar AuthService.login
+    // Para el caso directo también
     const url = (environment && environment.apiUrl)
-      ? `${environment.apiUrl}/auth/login` : '/auth/login';
+      ? `${environment.apiUrl}/auth/login`
+      : '/auth/login';
 
     this.http.post<{ token: string }>(url, loginPayload).subscribe({
       next: (res) => {
+        this.cargando = false;
         if (res && res.token) {
           if (typeof authAsAny.guardarToken === 'function') {
             authAsAny.guardarToken(res.token);
@@ -122,53 +125,47 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
         this.onLoginSuccess();
       },
       error: (err) => {
+        this.cargando = false;
         this.onLoginError(err);
       }
     });
   }
 
-private onLoginSuccess(): void {
-  Swal.fire({
-    icon: 'success',
-    title: '',
-    text: '',
-    width: 350,
-    background: 'rgba(30, 80, 20, 0.85)',
-    color: '#99e699',
-    iconColor: '#28a745',
-    showConfirmButton: false,
-    timer: 1200,
-    customClass: {
-      popup: 'swal2-popup-custom swal2-popup-checkonly'
-    },
-    didOpen: (popup) => {
-      // Oculta el anillo animado SVG si existe
-      const ring = popup.querySelector('.swal2-success-ring');
-      if (ring) (ring as HTMLElement).style.display = 'none';
-      // Alternativamente, oculta todos los hijos SVG menos .swal2-success-line-tip y .swal2-success-line-long
-      const svg = popup.querySelector('.swal2-success');
-      if (svg) {
-        Array.from(svg.children).forEach(child => {
-          if (
-            !child.classList.contains('swal2-success-line-tip') &&
-            !child.classList.contains('swal2-success-line-long')
-          ) {
-            (child as HTMLElement).style.display = 'none';
-          }
-        });
+  private onLoginSuccess(): void {
+    Swal.fire({
+      icon: 'success',
+      title: '',
+      text: '',
+      width: 350,
+      background: 'rgba(30, 80, 20, 0.85)',
+      color: '#99e699',
+      iconColor: '#28a745',
+      showConfirmButton: false,
+      timer: 1200,
+      customClass: {
+        popup: 'swal2-popup-custom swal2-popup-checkonly'
+      },
+      didOpen: (popup) => {
+        const ring = popup.querySelector('.swal2-success-ring');
+        if (ring) (ring as HTMLElement).style.display = 'none';
+        const svg = popup.querySelector('.swal2-success');
+        if (svg) {
+          Array.from(svg.children).forEach(child => {
+            if (
+              !child.classList.contains('swal2-success-line-tip') &&
+              !child.classList.contains('swal2-success-line-long')
+            ) {
+              (child as HTMLElement).style.display = 'none';
+            }
+          });
+        }
       }
-    }
-  }).then(() => {
-    this.ngZone.run(() => {
-      this.router.navigate(['/control-movimiento']);
+    }).then(() => {
+      this.ngZone.run(() => {
+        this.router.navigate(['/control-movimiento']);
+      });
     });
-  });
-}
-
-
-
-
-
+  }
 
   private onLoginError(err: any): void {
     console.log('[login] login ERROR:', err);

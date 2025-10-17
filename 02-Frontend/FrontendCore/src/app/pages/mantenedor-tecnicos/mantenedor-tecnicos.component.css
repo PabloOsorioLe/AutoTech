@@ -39,7 +39,7 @@ h2 {
 
 .btn-agregar {
   flex: 1;
-  background: linear-gradient(90deg, #3ad764 60%, #20802b 100%);
+  background: linear-gradient(90deg, #447d5e 60%, #399e6e 100%);
   color: #fff;
   border: none;
   padding: 0.47em 0.7em;
@@ -47,12 +47,15 @@ h2 {
   font-weight: 600;
   font-size: 1em;
   cursor: pointer;
-  transition: background 0.17s;
+  box-shadow: 0 1px 6px rgba(44, 155, 38, 0.10);
+  transition: background 0.15s, box-shadow 0.14s;
 }
 
 .btn-agregar:hover {
-  background: #217a36;
+  background: linear-gradient(90deg, #37704f 70%, #297054 100%);
+  box-shadow: 0 2px 10px rgba(44, 152, 88, 0.16);
 }
+
 
 .tabla-tecnicos {
   width: 100%;
