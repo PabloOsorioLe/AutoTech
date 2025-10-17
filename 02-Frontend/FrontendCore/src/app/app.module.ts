@@ -45,14 +45,14 @@ import { environment } from '../environments/environment';
     ProductosComponent,
     VentasComponent,
     VentasDetallesComponent
-    // NO declares LoginComponent aquí si lo tienes en AuthModule
+    // ControlMovimientoComponent NO va aquí (declararlo solo en su módulo)
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AuthModule,             // Importa el módulo que EXPORTA LoginComponent
+    AuthModule,             // Importa el módulo que exporta LoginComponent
     FormsModule,            // Template-Driven Forms (por si lo usan otros componentes)
-    ReactiveFormsModule,    // Solo si usas también forms reactivos
+    ReactiveFormsModule,    // Solo si usas forms reactivos
     HttpClientModule,
     AppRoutingModule,
     MatPaginatorModule,

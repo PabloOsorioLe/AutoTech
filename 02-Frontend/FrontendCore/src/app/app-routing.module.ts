@@ -18,6 +18,8 @@ const routes: Routes = [
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
   },
+  { path: 'control-movimiento', loadChildren: () => import('./pages/control-movimiento/control-movimiento.module').then(m => m.ControlMovimientoModule) },
+  { path: 'mantenedor-tecnicos', loadChildren: () => import('./pages/mantenedor-tecnicos/mantenedor-tecnicos.module').then(m => m.MantenedorTecnicosModule) },
   { path: '**', redirectTo: '/productos' }
 ];
 

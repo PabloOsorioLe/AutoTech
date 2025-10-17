@@ -1,0 +1,38 @@
+<div class="contenedor-tecnicos">
+  <h2>Mantenedor de Técnicos</h2>
+
+  <form (ngSubmit)="agregarTecnico()" class="form-tecnico" autocomplete="off">
+    <input
+      type="text"
+      placeholder="Nuevo técnico"
+      [(ngModel)]="nuevoTecnico"
+      name="tecnico"
+      required
+      class="input-tecnico"
+    />
+    <button type="submit" class="btn-agregar">Agregar</button>
+  </form>
+  <div *ngIf="mensaje" class="mensaje-error">{{ mensaje }}</div>
+
+  <table class="tabla-tecnicos">
+    <thead>
+      <tr>
+        <th style="width: 75%">Nombre del Técnico</th>
+        <th style="width: 25%">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tecnico of tecnicos; let i = index">
+        <td>{{ tecnico }}</td>
+        <td>
+          <button class="btn-eliminar" (click)="eliminarTecnico(i)">
+            <i class="bi bi-trash"></i> Eliminar
+          </button>
+        </td>
+      </tr>
+      <tr *ngIf="tecnicos.length === 0">
+        <td colspan="2" class="vacio">No hay técnicos registrados.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

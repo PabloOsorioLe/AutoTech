@@ -1,0 +1,118 @@
+.container-control-movimiento {
+  width: 98vw;
+  max-width: 98vw;
+  margin: 0.7rem auto 0.9rem auto;
+  padding: 0.8rem 0 1.2rem 0;
+  background: #f5f8fc;
+  border-radius: 0.6em;
+  box-shadow: none;
+}
+
+h2 {
+  color: #375a7f;
+  font-size: 1.08rem;
+  text-align: center;
+  margin-bottom: 1.0rem;
+}
+
+.table-responsive {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0;
+  padding: 0;
+}
+
+.tabla-movimiento {
+  width: 100%;
+  min-width: 700px;
+  table-layout: auto;                /* Cambia a 'auto' para que ancho crezca según el contenido */
+  border-collapse: collapse;
+  background: #fff;
+  font-size: 0.96em;
+}
+
+.tabla-movimiento th,
+.tabla-movimiento td {
+  border: 1px solid #b2becd;
+  padding: 0.32rem 0.54rem;
+  text-align: right;
+  /* Elimina: overflow, text-overflow y white-space */
+  font-variant-numeric: tabular-nums;
+  min-width: 74px;                  /* Ancho mínimo razonable para montos */
+}
+
+.tabla-movimiento th:first-child,
+.tabla-movimiento td:first-child {
+  text-align: left;
+  min-width: 140px;
+  max-width: 240px;
+  width: 18vw;
+  background: #e8eaf6;
+}
+
+.tabla-movimiento th.text-center {
+  text-align: center;
+}
+
+.total-label {
+  text-align: right;
+  font-weight: bold;
+  background: #fcf7e8;
+}
+
+.total-cell {
+  font-weight: 600;
+  background: #fcfff4;
+}
+
+.total-general {
+  font-weight: 700;
+  background: #e4fee0;
+  color: #143d1f;
+  text-align: center;
+}
+
+@media (max-width: 900px) {
+  .tabla-movimiento th,
+  .tabla-movimiento td {
+    font-size: 0.92em;
+    padding: 0.16rem 0.18rem;
+    min-width: 70px;
+  }
+  .tabla-movimiento th:first-child,
+  .tabla-movimiento td:first-child {
+    min-width: 88px;
+    font-size: 0.99em;
+    width: 24vw;
+  }
+  .container-control-movimiento {
+    padding: 0.32rem 0 0.45rem 0;
+    border-radius: 0.2em;
+  }
+}
+
+@media (max-width: 600px) {
+  .tabla-movimiento th,
+  .tabla-movimiento td {
+    font-size: 0.81em;
+    padding: 0.08rem 0.18rem;
+    min-width: 58px;
+  }
+  h2 {
+    font-size: 0.89rem;
+  }
+  .container-control-movimiento {
+    padding: 0.12rem 0 0.36rem 0;
+  }
+}
+.cell-input {
+  width: 67px;
+  font-size: 0.99em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #a8b3bc;
+  text-align: right;
+  background: #f8fafb;
+}
+

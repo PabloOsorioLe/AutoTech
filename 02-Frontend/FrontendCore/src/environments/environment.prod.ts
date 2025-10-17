@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://AutoTech.onrender.com/api'
+  apiUrl: 'https://autotech-r9i9.onrender.com/api'
+  
 };

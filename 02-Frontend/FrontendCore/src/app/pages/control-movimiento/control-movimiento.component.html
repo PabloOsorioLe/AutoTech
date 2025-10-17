@@ -1,0 +1,92 @@
+<div class="container-control-movimiento">
+    <h2>REPORTE DE CONTROL DE MOVIMIENTO DIARIO</h2>
+    <div class="table-responsive">
+        <table class="tabla-movimiento">
+            <thead>
+                <tr>
+                    <th>Trabajo</th>
+                    <ng-container *ngFor="let tecnico of tecnicos">
+                        <th colspan="3" class="text-center">{{ tecnico | titlecase }}</th>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <th></th>
+                    <ng-container *ngFor="let tecnico of tecnicos">
+                        <th>Débito</th>
+                        <th>Efectivo</th>
+                        <th>Transferencias</th>
+                    </ng-container>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trabajo of trabajos">
+                    <td>{{ trabajo }}</td>
+                    <ng-container *ngFor="let tecnico of tecnicos">
+                        <!-- Débito -->
+                        <td (dblclick)="editing={trabajo, tecnico, tipo: 'debito'}">
+                            <ng-container
+                                *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'debito'; else showDebito">
+                                <input type="number" class="cell-input"
+                                    [value]="getMovimiento(trabajo, tecnico)?.debito || ''"
+                                    (blur)="setValor(trabajo, tecnico, 'debito', $any($event.target).valueAsNumber)"
+                                    (keydown.enter)="setValor(trabajo, tecnico, 'debito', $any($event.target).valueAsNumber)"
+                                    autofocus />
+                            </ng-container>
+                            <ng-template #showDebito>
+                                {{ getMovimiento(trabajo, tecnico)?.debito || '' }}
+                            </ng-template>
+                        </td>
+                        <!-- Efectivo -->
+                        <td (dblclick)="editing={trabajo, tecnico, tipo: 'efectivo'}">
+                            <ng-container
+                                *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'efectivo'; else showEfectivo">
+                                <input type="number" class="cell-input"
+                                    [value]="getMovimiento(trabajo, tecnico)?.efectivo || ''"
+                                    (blur)="setValor(trabajo, tecnico, 'efectivo', $any($event.target).valueAsNumber)"
+                                    (keydown.enter)="setValor(trabajo, tecnico, 'efectivo', $any($event.target).valueAsNumber)"
+                                    autofocus />
+                            </ng-container>
+                            <ng-template #showEfectivo>
+                                {{ getMovimiento(trabajo, tecnico)?.efectivo || '' }}
+                            </ng-template>
+                        </td>
+                        <!-- Transferencias -->
+                        <td (dblclick)="editing={trabajo, tecnico, tipo: 'transferencia'}">
+                            <ng-container
+                                *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'transferencia'; else showTransf">
+                                <input type="number" class="cell-input"
+                                    [value]="getMovimiento(trabajo, tecnico)?.transferencia || ''"
+                                    (blur)="setValor(trabajo, tecnico, 'transferencia', $any($event.target).valueAsNumber)"
+                                    (keydown.enter)="setValor(trabajo, tecnico, 'transferencia', $any($event.target).valueAsNumber)"
+                                    autofocus />
+                            </ng-container>
+                            <ng-template #showTransf>
+                                {{ getMovimiento(trabajo, tecnico)?.transferencia || '' }}
+                            </ng-template>
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td class="total-label">Totales</td>
+                    <ng-container *ngFor="let tecnico of tecnicos">
+                        <td class="total-cell">{{ getTotalPorTecnico(tecnico, 'debito') | number:'1.0-0' }}</td>
+                        <td class="total-cell">{{ getTotalPorTecnico(tecnico, 'efectivo') | number:'1.0-0' }}</td>
+                        <td class="total-cell">{{ getTotalPorTecnico(tecnico, 'transferencia') | number:'1.0-0' }}</td>
+                    </ng-container>
+                </tr>
+                <tr>
+                    <td class="total-label">Totales Grales</td>
+                    <ng-container *ngFor="let tecnico of tecnicos">
+                        <td colspan="3" class="total-general">
+                            {{ (getTotalPorTecnico(tecnico, 'debito') +
+                            getTotalPorTecnico(tecnico, 'efectivo') +
+                            getTotalPorTecnico(tecnico, 'transferencia')) | number:'1.0-0' }}
+                        </td>
+                    </ng-container>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
