@@ -59,8 +59,8 @@ builder.Services.AddCors(options =>
                  "http://localhost:4200",
                  "https://fullpega.cl",
                  "https://www.fullpega.cl",
-                 "https://inventorycloud.onrender.com", // ✅ Backend
-                 "https://inventory-cloud.vercel.app"   // ✅ Frontend
+                 "https://autotech-r9i9.onrender.com", // ✅ Backend
+                 "https://auto-tech-one.vercel.app/"   // ✅ Frontend
              )
              .AllowAnyHeader()
              .AllowAnyMethod();

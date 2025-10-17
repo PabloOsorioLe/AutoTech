@@ -1,0 +1,118 @@
+.contenedor-tecnicos {
+  max-width: 430px;
+  margin: 2.5rem auto 1.2rem auto;
+  background: #f7fafc;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px 0 rgba(34, 57, 123, 0.12);
+  padding: 2rem 1.2rem 1.2rem 1.2rem;
+}
+
+h2 {
+  color: #375a7f;
+  font-size: 1.16rem;
+  margin-bottom: 1.2rem;
+  text-align: center;
+}
+
+.form-tecnico {
+  display: flex;
+  gap: 0.9em;
+  margin-bottom: 1.1em;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-tecnico {
+  flex: 3;
+  padding: 0.47em 0.8em;
+  border: 1.2px solid #b6c8e2;
+  border-radius: 6px;
+  font-size: 1em;
+  background: #fff;
+  transition: border 0.17s;
+}
+
+.input-tecnico:focus {
+  border-color: #375a7f;
+  outline: none;
+}
+
+.btn-agregar {
+  flex: 1;
+  background: linear-gradient(90deg, #3ad764 60%, #20802b 100%);
+  color: #fff;
+  border: none;
+  padding: 0.47em 0.7em;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.17s;
+}
+
+.btn-agregar:hover {
+  background: #217a36;
+}
+
+.tabla-tecnicos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 0.3em;
+  background: #fff;
+}
+
+.tabla-tecnicos th, .tabla-tecnicos td {
+  border: 1px solid #c2d1ed;
+  padding: 0.55em 0.5em;
+  text-align: left;
+  font-size: 1em;
+}
+
+.tabla-tecnicos th {
+  background: #e6efef;
+  color: #27394e;
+  font-weight: 700;
+}
+
+.btn-eliminar {
+  color: #da3535;
+  background: none;
+  border: none;
+  font-weight: 500;
+  font-size: 1em;
+  border-radius: 4px;
+  transition: background 0.15s, color 0.12s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.28em;
+}
+
+.btn-eliminar:hover {
+  color: #fff;
+  background: #ba2626;
+}
+
+.vacio {
+  text-align: center;
+  color: #868686;
+  font-style: italic;
+}
+
+.mensaje-error {
+  color: #c41e1e;
+  text-align: center;
+  margin-bottom: 0.9em;
+  font-size: 0.97em;
+}
+
+@media (max-width: 600px) {
+  .contenedor-tecnicos {
+    max-width: 99vw;
+    padding: 0.7rem 0.5rem 0.8rem 0.5rem;
+  }
+  .tabla-tecnicos th, .tabla-tecnicos td {
+    font-size: 0.98em;
+    padding: 0.38em 0.19em;
+  }
+}

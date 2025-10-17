@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { Usuario } from '../../interfaces/usuario';
-import { forkJoin, timer } from 'rxjs';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +13,8 @@ import { forkJoin, timer } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
-  cargandoVisible: boolean = true; // sólo para loader visual
-  cargando: boolean = false;       // nunca bloquea controles
+  cargandoVisible: boolean = true; // loader visible al inicio
+  cargando: boolean = false;       // controla el estado durante login
   usuario: string = '';
   password: string = '';
   mostrarPassword: boolean = false;
@@ -30,25 +30,19 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
   ) { }
 
   ngOnInit(): void {
-    console.log('[login] ngOnInit');
-    console.log('[login] antes del forkJoin:', environment.apiUrl);
+    console.log('[login] ngOnInit iniciado');
+    console.log('[login] backend warmup asincrónico a:', environment.apiUrl);
 
-    forkJoin({
-      timer: timer(1500),
-      backend: this.http.get(`${environment.apiUrl}/auth/warmup`)
-    }).subscribe({
-      next: () => {
-        this.cargandoVisible = false;
-        console.log('[login] loader terminado, se muestra input y btn: cargandoVisible =', this.cargandoVisible);
-        console.log('[login] cargandoVisible =', this.cargandoVisible);
+    // 1️⃣ Llamada al backend asincrónica (no bloquea UI ni loader)
+    this.http.get(`${environment.apiUrl}/auth/warmup`).subscribe({
+      next: () => console.log('[login] warmup backend completado'),
+      error: (err) => console.log('[login] error warmup no crítico:', err)
+    });
 
-      },
-      error: (err) => {
-        this.cargandoVisible = false;
-        console.log('[login] error backend warmup loader, cargandoVisible =', this.cargandoVisible, err);
-        console.log('[login] cargandoVisible =', this.cargandoVisible);
-
-      }
+    // 2️⃣ Loader se mantiene visible 4 segundos y luego desaparece
+    timer(4000).subscribe(() => {
+      this.cargandoVisible = false;
+      console.log('[login] loader oculto tras 4 segundos');
     });
   }
 
@@ -57,12 +51,11 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    // Solo tratar de enfocar si el loader ya desapareció y hay input
+    // Foco automático al input después de quitar el loader
     if (!this.cargandoVisible && !this.firstFocus && this.usuarioInputRef) {
       this.usuarioInputRef.nativeElement.focus();
       this.firstFocus = true;
-      console.log('[login] AfterViewChecked: foco puesto a usuarioInput');
-      console.log('[login] usuarioInput.disabled:', this.usuarioInputRef.nativeElement.disabled);
+      console.log('[login] foco puesto en usuarioInput');
     }
   }
 
@@ -74,15 +67,15 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
         title: 'Campos requeridos',
         text: 'Por favor, ingrese usuario y contraseña.'
       });
-      console.log('[login] campos incompletos, usuario:', this.usuario, 'password:', this.password);
+      console.log('[login] campos incompletos');
       return;
     }
-    // Nunca cambia cargando, nunca bloquea controles
+
     const loginPayload = { rut: this.usuario, password: this.password };
     const authAsAny = this.authService as any;
 
     if (authAsAny && typeof authAsAny.login === 'function') {
-      console.log('[login] login via AuthService');
+      console.log('[login] autenticando via AuthService');
       authAsAny.login(loginPayload).subscribe({
         next: (res: any) => {
           if (res && res.token) {
@@ -107,8 +100,10 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
       return;
     }
 
+    // Llamada directa en caso de no usar AuthService.login
     const url = (environment && environment.apiUrl)
       ? `${environment.apiUrl}/auth/login` : '/auth/login';
+
     this.http.post<{ token: string }>(url, loginPayload).subscribe({
       next: (res) => {
         if (res && res.token) {
@@ -132,29 +127,51 @@ export class LoginComponent implements OnInit, AfterViewInit, AfterViewChecked {
     });
   }
 
-  private onLoginSuccess(): void {
-    console.log('[login] login OK');
-    Swal.fire({
-      icon: 'success',
-      title: 'Bienvenido/a',
-      showConfirmButton: false,
-      timer: 1500,
-      background: 'rgba(24, 24, 24, 0.85)',
-      color: '#99caff',
-      iconColor: '#28a745',
-      customClass: {
-        popup: 'swal2-popup-custom',
-        title: 'swal2-title-custom'
+private onLoginSuccess(): void {
+  Swal.fire({
+    icon: 'success',
+    title: '',
+    text: '',
+    width: 350,
+    background: 'rgba(30, 80, 20, 0.85)',
+    color: '#99e699',
+    iconColor: '#28a745',
+    showConfirmButton: false,
+    timer: 1200,
+    customClass: {
+      popup: 'swal2-popup-custom swal2-popup-checkonly'
+    },
+    didOpen: (popup) => {
+      // Oculta el anillo animado SVG si existe
+      const ring = popup.querySelector('.swal2-success-ring');
+      if (ring) (ring as HTMLElement).style.display = 'none';
+      // Alternativamente, oculta todos los hijos SVG menos .swal2-success-line-tip y .swal2-success-line-long
+      const svg = popup.querySelector('.swal2-success');
+      if (svg) {
+        Array.from(svg.children).forEach(child => {
+          if (
+            !child.classList.contains('swal2-success-line-tip') &&
+            !child.classList.contains('swal2-success-line-long')
+          ) {
+            (child as HTMLElement).style.display = 'none';
+          }
+        });
       }
-    }).then(() => {
-      this.ngZone.run(() => {
-        this.router.navigate(['/productos']);
-      });
+    }
+  }).then(() => {
+    this.ngZone.run(() => {
+      this.router.navigate(['/control-movimiento']);
     });
-  }
+  });
+}
+
+
+
+
+
 
   private onLoginError(err: any): void {
-    console.log('[login] login ERROR, err:', err);
+    console.log('[login] login ERROR:', err);
     let mensaje = 'Problemas con el servidor.';
     if (err && err.status === 401) mensaje = 'Clave inválida o usuario incorrecto.';
     else if (err && err.status === 404) mensaje = 'Servicio no disponible.';

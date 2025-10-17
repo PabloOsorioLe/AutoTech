@@ -20,10 +20,10 @@ body {
 .login-center-container {
   min-height: 100vh;
   display: flex;
-  align-items: center;
+  align-items: center;    /* Vertical - al centro (por defecto escritorio) */
   justify-content: center;
   position: relative;
-  z-index: 1; /* ✅ asegura estar por encima del fondo */
+  z-index: 1;
 }
 
 /* Tarjeta del login */
@@ -151,15 +151,20 @@ body {
   100% { transform: rotate(360deg); }
 }
 
-/* Responsivo */
+/* En móvil, sube el login visualmente */
 @media (max-width: 600px) {
+  .login-center-container {
+    align-items: flex-start;       /* Alinea arriba */
+    padding-top: 9vh;              /* Espacio superior ajustable, prueba entre 5vh y 15vh */
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
   .login-card {
     min-width: unset;
     width: 96vw;
     max-width: 98vw;
     padding: 1rem 0.9rem 0.9rem;
   }
-
   .login-logo {
     height: 40px;
   }
@@ -169,4 +174,36 @@ body {
 .login-container {
   position: relative;
   z-index: 10;
+}
+
+
+.swal2-popup-checkonly {
+  background: rgba(30, 80, 20, 0.85) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 6px 28px 0 rgba(44, 155, 38, 0.19) !important;
+}
+
+.swal2-icon.swal2-success {
+  font-size: 3.5em !important;
+  width: 6em !important;
+  height: 6em !important;
+  margin: 0 auto !important;
+}
+.swal2-success-ring {
+  display: none !important;
+}
+
+
+.swal2-popup-checkonly .swal2-success-ring,
+.swal2-popup-checkonly .swal2-success-fix {
+  display: none !important;
+}
+
+.swal2-popup-checkonly .swal2-icon.swal2-success {
+  font-size: 3.5em !important;
+  width: 6em !important;
+  height: 6em !important;
+  margin: 0 auto !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }

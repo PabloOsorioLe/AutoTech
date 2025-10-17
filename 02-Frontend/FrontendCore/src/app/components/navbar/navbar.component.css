@@ -1,3 +1,4 @@
+/* Fondo general: azul marino/petróleo, gradual pero sobrio */
 .custom-navbar {
   font-size: 1rem;
   letter-spacing: 0.02em;
@@ -8,14 +9,15 @@
   width: 100vw;
   height: 48px;
   z-index: 1050;
-  background: linear-gradient(135deg, #4e54c8, #8f94fb);
+  background: linear-gradient(90deg, #1a2840 0%, #244466 80%, #295a7a 100%);
   display: flex;
   align-items: center;
   padding: 0 1rem;
   border-radius: 0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 8px rgba(40, 54, 70, 0.17);
 }
 
+/* Botón hamburguesa */
 .navbar-toggler {
   padding: 0.25rem 0.5rem;
   font-size: 0.875rem;
@@ -28,103 +30,81 @@
   background-size: 1.1rem 1.1rem;
 }
 
+/* Navbar-collapse */
 .navbar-collapse {
-  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 @media (min-width: 992px) {
-  .navbar-collapse {
-    display: flex !important;
-  }
-
-  .navbar-nav {
-    flex-direction: row !important;
-    align-items: center;
-  }
-
-  .menu-title-mobile {
-    display: none !important;
-  }
+  .navbar-collapse { display: flex !important; }
+  .navbar-nav { flex-direction: row !important; align-items: center; }
+  .menu-title-mobile { display: none !important; }
 }
 
+/* Responsive mobile */
 @media (max-width: 991.98px) {
   .navbar-collapse {
     position: fixed;
     top: 48px;
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, #4e54c8, #8f94fb);
+    background: linear-gradient(90deg, #1b2132 0%, #295a7a 100%);
     border-radius: 0 0 0.5rem 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 12px rgba(22,30,44,0.16);
     padding: 0.5rem 1rem;
     opacity: 0;
     transform: translateY(-10px);
     pointer-events: none;
     z-index: 1040;
   }
-
-  .navbar-collapse.show {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-  }
-
-  .nav-item {
-    width: 100%;
-    opacity: 0;
-    animation: fadeSlideIn 0.3s ease-out forwards;
-  }
-
+  .navbar-collapse.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .nav-item { width: 100%; opacity: 0; animation: fadeSlideIn 0.3s ease-out forwards; }
   .navbar-collapse.show .nav-item:nth-child(1) { animation-delay: 0.05s; }
   .navbar-collapse.show .nav-item:nth-child(2) { animation-delay: 0.1s; }
   .navbar-collapse.show .nav-item:nth-child(3) { animation-delay: 0.15s; }
-
-  .nav-link {
-    padding: 0.5rem 1rem;
-    text-align: left;
-    width: 100%;
-  }
-
+  .nav-link { padding: 0.5rem 1rem; text-align: left; width: 100%; }
   .nav-link.activo {
-    background-color: rgba(255, 255, 255, 0.15);
-    font-weight: bold;
+    background: rgba(34, 71, 122, 0.45);
+    color: #f9fff9 !important;
+    font-weight: 700;
+    border-radius: 0.45rem;
+    box-shadow: 0 1px 8px rgba(35,52,88,0.13);
+    outline: 1.5px solid #295a7a4d;
   }
 }
 
 @keyframes fadeSlideIn {
-  0% {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  0% { opacity: 0; transform: translateY(-6px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Links nav + hover/active */
 .navbar-collapse .nav-link {
-  color: white !important;
+  color: #d7e6ff !important;
   display: inline-flex;
   align-items: center;
-  transition: all 0.3s ease;
+  transition: background 0.21s, color 0.21s;
+  border-radius: 0.44rem;
+  padding: 0.23em 1.5em 0.23em 0.6em;
 }
 
 .navbar-collapse .nav-link i {
   margin-right: 0.5rem;
-  transition: transform 0.3s ease;
-}
-
-.navbar-collapse .nav-link:hover,
-.navbar-collapse .nav-link:hover i {
-  color: #ffe082 !important;
-  text-shadow: 0 0 6px rgba(255, 224, 130, 0.6);
-  background-color: rgba(255, 255, 255, 0.08);
-  transform: translateY(-2px);
 }
 
 .navbar-collapse .nav-link.activo {
-  font-weight: 600;
-  color: white !important;
+  background: rgba(36,68,128,0.42);
+  color: #e9fff0 !important;
+  font-weight: 700;
+  border-radius: 0.45rem;
+  outline: 1.5px solid #27427021;
+}
+
+.navbar-collapse .nav-link:hover,
+.navbar-collapse .nav-link:focus {
+  background: rgba(41, 90, 122, 0.23);
+  color: #abe1c1 !important;
+  text-shadow: 0 0 4px rgba(76, 190, 137, 0.12);
 }
 
 .menu-title-mobile {
@@ -135,4 +115,5 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #d1dee8;
 }
