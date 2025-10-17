@@ -60,7 +60,7 @@ builder.Services.AddCors(options =>
                  "https://fullpega.cl",
                  "https://www.fullpega.cl",
                  "https://autotech-r9i9.onrender.com", // ✅ Backend
-                 "https://auto-tech-one.vercel.app/"   // ✅ Frontend
+                 "https://auto-tech-one.vercel.app"    // ✅ Frontend
              )
              .AllowAnyHeader()
              .AllowAnyMethod();
