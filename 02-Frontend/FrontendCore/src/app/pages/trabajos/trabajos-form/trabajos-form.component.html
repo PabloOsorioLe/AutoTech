@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>{{ esEdicion ? 'Editar' : 'Nuevo' }} Trabajo</h2>
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <div class="mb-3">
+      <label>Título</label>
+      <input type="text" class="form-control" formControlName="titulo">
+    </div>
+    <div class="mb-3">
+      <label>Descripción</label>
+      <textarea class="form-control" formControlName="descripcion"></textarea>
+    </div>
+    <div class="mb-3">
+      <label>Estado</label>
+      <select class="form-select" formControlName="estado">
+        <option value="Pendiente">Pendiente</option>
+        <option value="En Progreso">En Progreso</option>
+        <option value="Completado">Completado</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label>Fecha Inicio</label>
+      <input type="date" class="form-control" formControlName="fechaInicio">
+    </div>
+    <div class="mb-3">
+      <label>Fecha Fin</label>
+      <input type="date" class="form-control" formControlName="fechaFin">
+    </div>
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-success">Guardar</button>
+      <button type="button" class="btn btn-secondary" routerLink="/trabajos">Cancelar</button>
+    </div>
+  </form>
+</div>

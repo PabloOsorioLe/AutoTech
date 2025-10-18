@@ -7,14 +7,12 @@
   border-radius: 0.6em;
   box-shadow: none;
 }
-
 h2 {
   color: #375a7f;
   font-size: 1.08rem;
   text-align: center;
   margin-bottom: 1.0rem;
 }
-
 .table-responsive {
   width: 100%;
   max-width: 100%;
@@ -22,26 +20,22 @@ h2 {
   margin: 0;
   padding: 0;
 }
-
 .tabla-movimiento {
   width: 100%;
   min-width: 700px;
-  table-layout: auto;                /* Cambia a 'auto' para que ancho crezca según el contenido */
+  table-layout: auto;
   border-collapse: collapse;
   background: #fff;
   font-size: 0.96em;
 }
-
 .tabla-movimiento th,
 .tabla-movimiento td {
   border: 1px solid #b2becd;
   padding: 0.32rem 0.54rem;
   text-align: right;
-  /* Elimina: overflow, text-overflow y white-space */
   font-variant-numeric: tabular-nums;
-  min-width: 74px;                  /* Ancho mínimo razonable para montos */
+  min-width: 74px;
 }
-
 .tabla-movimiento th:first-child,
 .tabla-movimiento td:first-child {
   text-align: left;
@@ -50,29 +44,64 @@ h2 {
   width: 18vw;
   background: #e8eaf6;
 }
-
 .tabla-movimiento th.text-center {
   text-align: center;
 }
-
 .total-label {
   text-align: right;
   font-weight: bold;
   background: #fcf7e8;
 }
-
 .total-cell {
   font-weight: 600;
   background: #fcfff4;
 }
-
 .total-general {
   font-weight: 700;
   background: #e4fee0;
   color: #143d1f;
   text-align: center;
 }
-
+.resumen-tecnico-label {
+  text-align: right;
+  font-weight: bold;
+  background: #eaf3ff;
+  color: #2b4b66;
+}
+.resumen-tecnico-cell {
+  background: #eefdf6;
+  color: #183d1e;
+  font-size: 0.98em;
+  line-height: 1.4em;
+  font-weight: 600;
+  border-top: 2.5px solid #b7c9e3;
+  border-bottom: 2.5px solid #b7c9e3;
+}
+.resumen-tecnico-cell b {
+  color: #22397b;
+}
+.totales-generales {
+  margin-top: 14px;
+}
+.only-border-right {
+  border-right: 2.5px solid #515b6c;
+  padding: 4px 16px 4px 0;
+  margin-bottom: 2px;
+  text-align: right;
+  min-width: 170px;
+  font-weight: 700;
+  color: #234d29;
+  background: #f4f5fa;
+}
+.cell-input {
+  width: 67px;
+  font-size: 0.99em;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #a8b3bc;
+  text-align: right;
+  background: #f8fafb;
+}
 @media (max-width: 900px) {
   .tabla-movimiento th,
   .tabla-movimiento td {
@@ -91,7 +120,6 @@ h2 {
     border-radius: 0.2em;
   }
 }
-
 @media (max-width: 600px) {
   .tabla-movimiento th,
   .tabla-movimiento td {
@@ -106,13 +134,243 @@ h2 {
     padding: 0.12rem 0 0.36rem 0;
   }
 }
-.cell-input {
-  width: 67px;
-  font-size: 0.99em;
-  padding: 2px 5px;
-  border-radius: 3px;
-  border: 1px solid #a8b3bc;
+.total-general-block {
+  margin: 10px 0 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  max-width: 285px;           /* Más pequeño */
+  background: #fff;
+  border: 2.2px solid #212121;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px 0 rgba(60,70,80,0.07);
+  display: block;
+}
+.total-general-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: transparent;
+}
+.labels-col {
   text-align: right;
-  background: #f8fafb;
+  vertical-align: middle;
+  background: transparent;
+  font-size: 0.93em;
+  color: #164676;
+  font-weight: bold;
+  padding: 5px 4px 5px 0 !important;
+  width: 51%;
+}
+.values-col {
+  text-align: center;
+  vertical-align: middle;
+  background: transparent;
+  font-size: 1em;
+  font-weight: 700;
+  padding: 5px 2px 5px 2px !important;
+  width: 49%;
+}
+.label-row, .value-row {
+  margin: 2px 0;
+  line-height: 1.04em;
+}
+.neto-value {
+  color: #215d09;
+  font-size: 1.08em;
+}
+.iva-value {
+  color: #a11717;
+  font-size: 1.08em;
+}
+.total-iva-value {
+  color: #107e5c;
+  font-size: 1.09em;
+  font-weight: 700;
+}
+.total-iva-row {
+  font-weight: 700;
+}
+/* Si el monto excede el ancho, el contenedor crece */
+.total-general-block .value-row {
+  word-break: break-word;
+  font-size: 1.04em;
+  padding: 0;
+}
+@media (max-width: 600px) {
+  .total-general-block {
+    max-width: 99vw;
+    border-radius: 7px;
+    margin: 7px 0 0 auto;
+    padding: 0;
+  }
+  .labels-col, .values-col {
+    font-size: 0.88em;
+    padding: 3px 1px 3px 1px !important;
+  }
+}
+
+/* ----- CAMBIOS PARA FAB Y CALENDARIO ----- */
+
+/* ==================== CALENDARIO AJUSTADO ==================== */
+/* ==================== FAB + FECHA ==================== */
+.calendar-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2000;
+}
+
+/* Botón flotante circular (FAB) */
+.calendar-fab-material {
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  font-size: 1.6em !important;
+  background: #900C3F !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 14px rgba(30, 40, 60, 0.25) !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease-in-out, background 0.2s ease;
+}
+
+.calendar-fab-material:hover {
+  background: #7b0a35 !important;
+  transform: scale(1.07);
+}
+
+/* Texto de fecha seleccionada */
+.calendar-selected-date {
+  font-size: 1.1em;
+  color: #154585;
+  font-weight: 600;
+  background: #ecf5ff;
+  border: 1.3px solid #bdd0ea;
+  border-radius: 8px;
+  padding: 5px 18px;
+  box-shadow: 0 2px 9px rgba(60, 70, 80, 0.09);
+  min-width: 90px;
+  text-align: center;
+  letter-spacing: 0.02em;
+}
+
+/* ==================== POPUP DEL CALENDARIO ==================== */
+
+/* Posiciona el calendario debajo y a la derecha del botón */
+::ng-deep .calendar-panel-custom {
+  position: absolute !important;
+  transform-origin: top right !important;
+  margin-top: 55px !important;
+  right: 0 !important;
+  left: auto !important;
+  bottom: auto !important;
+  box-shadow: 0 8px 22px rgba(62, 82, 110, 0.15) !important;
+  border-radius: 15px !important;
+  background: #fff !important;
+  padding: 12px 0 !important;
+  border: 1px solid #d8dee9 !important;
+}
+
+/* Tamaño equilibrado del calendario */
+::ng-deep .calendar-panel-custom .mat-calendar,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar {
+  width: 340px !important;
+  min-width: 320px !important;
+  font-size: 1.1em !important;
+  font-family: inherit !important;
+  border-radius: 15px !important;
+}
+
+/* Encabezado (L M M J V S D) */
+::ng-deep .calendar-panel-custom .mat-calendar-table-header th,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-table-header th {
+  font-size: 1em !important;
+  font-weight: 600 !important;
+  padding-bottom: 10px !important;
+  color: #22397b !important;
+  letter-spacing: 0.05em;
+  text-align: center !important;
+}
+
+/* Celdas de los días */
+::ng-deep .calendar-panel-custom .mat-calendar-table td,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-table td {
+  padding: 10px 0 !important;
+  font-size: 1em !important;
+  text-align: center !important;
+}
+
+/* Hover y selección */
+::ng-deep .calendar-panel-custom .mat-calendar-body-cell:hover,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-body-cell:hover {
+  background-color: #f4f6ff !important;
+  border-radius: 50% !important;
+}
+
+::ng-deep .calendar-panel-custom .mat-calendar-body-selected,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-body-selected {
+  background-color: #900C3F !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+}
+
+/* Controles superior (mes/año y flechas) */
+::ng-deep .calendar-panel-custom .mat-calendar-period-button,
+::ng-deep .calendar-panel-custom .mat-calendar-previous-button,
+::ng-deep .calendar-panel-custom .mat-calendar-next-button,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-period-button,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-previous-button,
+::ng-deep .calendar-panel-custom .mat-mdc-calendar-next-button {
+  font-size: 1em !important;
+  color: #123c6b !important;
+}
+
+/* ==================== POSICIÓN CORRECTA ==================== */
+::ng-deep .cdk-overlay-bottom-right {
+  position: fixed !important;
+  bottom: 80px !important;
+  right: 40px !important;
+  transform: none !important;
+  z-index: 2100 !important;
+}
+
+/* Ajuste de borde y sombra */
+::ng-deep .calendar-panel-custom {
+  border-radius: 14px !important;
+  box-shadow: 0 6px 22px rgba(50, 70, 90, 0.15) !important;
+  background: #fff !important;
+  padding: 10px 0 !important;
+  border: 1px solid #d4d8e2 !important;
+  transform-origin: bottom right !important;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 800px) {
+  .calendar-widget {
+    right: 4vw;
+    bottom: 12px;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  ::ng-deep .calendar-panel-custom .mat-calendar,
+  ::ng-deep .calendar-panel-custom .mat-mdc-calendar {
+    width: 92vw !important;
+    font-size: 1em !important;
+  }
+
+  .calendar-selected-date {
+    font-size: 0.95em;
+    padding: 3px 10px;
+    margin-top: 6px;
+  }
 }
 

@@ -34,3 +34,6 @@
     padding-top: 0; /* o aumenta si necesitas más separación */
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

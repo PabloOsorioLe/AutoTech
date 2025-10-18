@@ -1,0 +1,25 @@
+<div class="container">
+  <h2>Trabajos</h2>
+  <button routerLink="/trabajos/nuevo" class="btn btn-primary mb-3">Nuevo Trabajo</button>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let trabajo of trabajos">
+        <td>{{ trabajo.titulo }}</td>
+        <td>{{ trabajo.descripcion }}</td>
+        <td>{{ trabajo.estado }}</td>
+        <td>
+          <button (click)="editar(trabajo.id)" class="btn btn-sm btn-warning">Editar</button>
+          <button (click)="eliminar(trabajo.id)" class="btn btn-sm btn-danger">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
