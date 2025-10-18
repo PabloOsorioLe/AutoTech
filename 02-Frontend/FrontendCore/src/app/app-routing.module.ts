@@ -20,8 +20,10 @@ const routes: Routes = [
   },
   { path: 'control-movimiento', loadChildren: () => import('./pages/control-movimiento/control-movimiento.module').then(m => m.ControlMovimientoModule) },
   { path: 'mantenedor-tecnicos', loadChildren: () => import('./pages/mantenedor-tecnicos/mantenedor-tecnicos.module').then(m => m.MantenedorTecnicosModule) },
+  { path: 'trabajos', loadChildren: () => import('./pages/trabajos/trabajos.module').then(m => m.TrabajosModule) },
   { path: '**', redirectTo: '/productos' }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
