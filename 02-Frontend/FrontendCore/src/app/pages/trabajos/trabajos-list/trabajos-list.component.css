@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  margin-top: 90px;
+}
+.contenedor-trabajos {
+  margin-top: 90px!important;
+  max-width: 1080px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  border-radius: 10px;
+  padding: 22px 16px 28px 16px;
+  box-shadow: 0 2px 16px rgba(50, 70, 110, 0.06);
+}
+
+.contenedor-trabajos h2 {
+  color: #244369;
+  text-align: left;
+  margin-bottom: 1.2em;
+  font-size: 1.44rem;
+  font-weight: 700;
+}
+
+.contenedor-trabajos .btn-primary {
+  font-weight: 600;
+  font-size: 1em;
+  padding: 8px 24px;
+  margin-bottom: 18px;
+  border-radius: 6px;
+}
+
+.contenedor-trabajos .table {
+  width: 100%;
+  border-radius: 7px;
+  overflow: hidden;
+  background: #f6f8fc;
+  margin-bottom: 10px;
+}
+
+.contenedor-trabajos .table th {
+  background: #f8fafc;
+  font-size: 1.09em;
+  color: #2c3e50;
+  font-weight: 700;
+  padding: 10px 12px;
+  letter-spacing: 0.01em;
+  border-bottom: 2px solid #d8dee9;
+}
+.contenedor-trabajos .table td {
+  font-size: 1em;
+  padding: 10px 12px;
+  background: #fff;
+  border-bottom: 1px solid #edf0f7;
+  vertical-align: middle;
+}
+.contenedor-trabajos .table-striped tbody tr:nth-of-type(even) td {
+  background: #f5f7fb;
+}
+
+/* Botones pequeños */
+.contenedor-trabajos .btn-warning,
+.contenedor-trabajos .btn-danger {
+  font-weight: 600;
+  font-size: 0.96em;
+  border-radius: 5px;
+  padding: 6px 14px;
+  margin-right: 6px;
+}
+
+.contenedor-trabajos .btn-warning {
+  background: #ffc107;
+  color: #222c36;
+  border: none;
+}
+.contenedor-trabajos .btn-warning:hover {
+  background: #e0a800;
+  color: #161a1d;
+}
+
+.contenedor-trabajos .btn-danger {
+  background: #e74c3c;
+  color: #fff;
+  border: none;
+}
+.contenedor-trabajos .btn-danger:hover {
+  background: #ce3321;
+  color: #fff;
+}
+
+@media (max-width: 700px) {
+  .contenedor-trabajos {
+    padding: 10px 2vw;
+    margin-top: 52px;
+  }
+  .contenedor-trabajos .table th,
+  .contenedor-trabajos .table td {
+    padding: 8px 4px;
+    font-size: 0.98em;
+  }
+  .contenedor-trabajos h2 {
+    font-size: 1.12rem;
+  }
+  .contenedor-trabajos .btn-primary {
+    width: 100%;
+    display: block;
+    margin-bottom: 13px;
+  }
+}

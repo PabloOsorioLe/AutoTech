@@ -212,7 +212,6 @@ h2 {
 /* ----- CAMBIOS PARA FAB Y CALENDARIO ----- */
 
 /* ==================== CALENDARIO AJUSTADO ==================== */
-/* ==================== FAB + FECHA ==================== */
 .calendar-widget {
   position: fixed;
   bottom: 20px;
@@ -223,13 +222,10 @@ h2 {
   z-index: 2000;
 }
 
-/* Botón flotante circular (FAB) */
+/* FAB - botón circular */
 .calendar-fab-material {
   width: 52px !important;
   height: 52px !important;
-  min-width: 0 !important;
-  min-height: 0 !important;
-  padding: 0 !important;
   font-size: 1.6em !important;
   background: #900C3F !important;
   color: #fff !important;
@@ -239,15 +235,14 @@ h2 {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s ease-in-out, background 0.2s ease;
+  transition: transform 0.2s, background 0.2s;
 }
-
 .calendar-fab-material:hover {
   background: #7b0a35 !important;
   transform: scale(1.07);
 }
 
-/* Texto de fecha seleccionada */
+/* Fecha seleccionada */
 .calendar-selected-date {
   font-size: 1.1em;
   color: #154585;
@@ -262,115 +257,30 @@ h2 {
   letter-spacing: 0.02em;
 }
 
-/* ==================== POPUP DEL CALENDARIO ==================== */
-
-/* Posiciona el calendario debajo y a la derecha del botón */
-::ng-deep .calendar-panel-custom {
-  position: absolute !important;
-  transform-origin: top right !important;
-  margin-top: 55px !important;
-  right: 0 !important;
-  left: auto !important;
-  bottom: auto !important;
-  box-shadow: 0 8px 22px rgba(62, 82, 110, 0.15) !important;
-  border-radius: 15px !important;
-  background: #fff !important;
-  padding: 12px 0 !important;
-  border: 1px solid #d8dee9 !important;
-}
-
-/* Tamaño equilibrado del calendario */
-::ng-deep .calendar-panel-custom .mat-calendar,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar {
-  width: 340px !important;
-  min-width: 320px !important;
-  font-size: 1.1em !important;
-  font-family: inherit !important;
-  border-radius: 15px !important;
-}
-
-/* Encabezado (L M M J V S D) */
-::ng-deep .calendar-panel-custom .mat-calendar-table-header th,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-table-header th {
-  font-size: 1em !important;
-  font-weight: 600 !important;
-  padding-bottom: 10px !important;
-  color: #22397b !important;
-  letter-spacing: 0.05em;
-  text-align: center !important;
-}
-
-/* Celdas de los días */
-::ng-deep .calendar-panel-custom .mat-calendar-table td,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-table td {
-  padding: 10px 0 !important;
-  font-size: 1em !important;
-  text-align: center !important;
-}
-
-/* Hover y selección */
-::ng-deep .calendar-panel-custom .mat-calendar-body-cell:hover,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-body-cell:hover {
-  background-color: #f4f6ff !important;
-  border-radius: 50% !important;
-}
-
-::ng-deep .calendar-panel-custom .mat-calendar-body-selected,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-body-selected {
-  background-color: #900C3F !important;
-  color: #fff !important;
-  border-radius: 50% !important;
-}
-
-/* Controles superior (mes/año y flechas) */
-::ng-deep .calendar-panel-custom .mat-calendar-period-button,
-::ng-deep .calendar-panel-custom .mat-calendar-previous-button,
-::ng-deep .calendar-panel-custom .mat-calendar-next-button,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-period-button,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-previous-button,
-::ng-deep .calendar-panel-custom .mat-mdc-calendar-next-button {
-  font-size: 1em !important;
-  color: #123c6b !important;
-}
-
-/* ==================== POSICIÓN CORRECTA ==================== */
-::ng-deep .cdk-overlay-bottom-right {
-  position: fixed !important;
-  bottom: 80px !important;
-  right: 40px !important;
-  transform: none !important;
-  z-index: 2100 !important;
-}
-
-/* Ajuste de borde y sombra */
-::ng-deep .calendar-panel-custom {
-  border-radius: 14px !important;
-  box-shadow: 0 6px 22px rgba(50, 70, 90, 0.15) !important;
-  background: #fff !important;
-  padding: 10px 0 !important;
-  border: 1px solid #d4d8e2 !important;
-  transform-origin: bottom right !important;
-}
-
-/* ==================== RESPONSIVE ==================== */
-@media (max-width: 800px) {
+/* En móvil, que el FAB esté arriba centrado, y desaparezca de abajo */
+@media (max-width: 700px) {
   .calendar-widget {
-    right: 4vw;
-    bottom: 12px;
-    flex-direction: column;
-    gap: 4px;
+    position: static !important;
+    right: auto !important;
+    bottom: auto !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw;
+    margin: 12px 0 8px;
+    gap: 12px;
+    justify-content: center;
+    z-index: 1050;
+    background: transparent;
   }
-
-  ::ng-deep .calendar-panel-custom .mat-calendar,
-  ::ng-deep .calendar-panel-custom .mat-mdc-calendar {
-    width: 92vw !important;
-    font-size: 1em !important;
+  .calendar-fab-material {
+    width: 48px !important;
+    height: 48px !important;
+    font-size: 1.3em !important;
+    margin-bottom: 0;
   }
-
   .calendar-selected-date {
-    font-size: 0.95em;
-    padding: 3px 10px;
-    margin-top: 6px;
+    font-size: 1em;
+    min-width: 82px;
+    padding: 4px 10px;
   }
 }
-
