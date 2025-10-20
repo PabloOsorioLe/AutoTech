@@ -1,5 +1,6 @@
 <div class="container-control-movimiento">
   <h2>REPORTE DE CONTROL DE MOVIMIENTO DIARIO</h2>
+
   <div class="table-responsive">
     <table class="tabla-movimiento">
       <thead>
@@ -49,7 +50,7 @@
                 {{ getMovimiento(trabajo, tecnico)?.efectivo | currency:'CLP':'':'1.0-0' }}
               </ng-template>
             </td>
-            <td (click)="editing={trabajo, tecnico, tipo: 'transferencia'}" 
+            <td (click)="editing={trabajo, tecnico, tipo: 'transferencia'}"
                 [ngClass]="{'separador-tecnico': i !== tecnicos.length - 1}">
               <ng-container *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'transferencia'; else showTransf">
                 <input type="number" class="cell-input"
@@ -89,33 +90,33 @@
         </tr>
       </tfoot>
     </table>
-
-    <div class="total-general-block">
-      <table class="total-general-table">
-        <tr>
-          <td class="labels-col">
-            <div class="label-row">Neto:</div>
-            <div class="label-row">IVA (19%):</div>
-            <div class="label-row total-iva-row">Total + IVA:</div>
-          </td>
-          <td class="values-col">
-            <div class="value-row neto-value">{{ getTotalNetoGeneral() | number:'1.0-0' }}</div>
-            <div class="value-row iva-value">{{ getTotalIVA() | number:'1.0-0' }}</div>
-            <div class="value-row total-iva-value">{{ getTotalConIVA() | number:'1.0-0' }}</div>
-          </td>
-        </tr>
-      </table>
-    </div>
   </div>
-    <div class="calendar-widget">
+
+  <!-- Bloque totales fuera del contenedor con scroll -->
+  <div class="total-general-block">
+    <table class="total-general-table">
+      <tr>
+        <td class="labels-col">
+          <div class="label-row">Neto:</div>
+          <div class="label-row">IVA (19%):</div>
+          <div class="label-row total-iva-row">Total + IVA:</div>
+        </td>
+        <td class="values-col">
+          <div class="value-row neto-value">{{ getTotalNetoGeneral() | number:'1.0-0' }}</div>
+          <div class="value-row iva-value">{{ getTotalIVA() | number:'1.0-0' }}</div>
+          <div class="value-row total-iva-value">{{ getTotalConIVA() | number:'1.0-0' }}</div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="calendar-widget">
     <button mat-fab color="primary" class="calendar-fab-material" (click)="calendar.open()">
       <mat-icon>calendar_month</mat-icon>
     </button>
     <span class="calendar-selected-date">{{ selectedDate | date:'dd/MM/yyyy' }}</span>
-
     <input matInput [matDatepicker]="calendar" [(ngModel)]="selectedDate" hidden>
     <mat-datepicker #calendar [panelClass]="'calendar-panel-custom'" startView="month" [startAt]="selectedDate" touchUi="false">
     </mat-datepicker>
   </div>
-
 </div>
