@@ -3,7 +3,8 @@ import { Trabajo } from '../trabajos.model';
 
 @Component({
   selector: 'app-trabajos-list',
-  templateUrl: './trabajos-list.component.html'
+  templateUrl: './trabajos-list.component.html',
+  styleUrls: ['./trabajos-list.component.css'] // ✅ Agrega esta línea
 })
 export class TrabajosListComponent {
   trabajos: Trabajo[] = [

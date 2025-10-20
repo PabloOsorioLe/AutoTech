@@ -1,18 +1,16 @@
-:host {
-  display: block;
-  margin-top: 90px;
-}
+/* 🔹 Contenedor general */
 .contenedor-trabajos {
-  margin-top: 90px!important;
-  max-width: 1080px;
+  margin-top: 4cqmax;
   margin-left: auto;
   margin-right: auto;
+  max-width: 1080px;
   background: #fff;
   border-radius: 10px;
-  padding: 22px 16px 28px 16px;
+  padding: 22px 32px 28px 32px;
   box-shadow: 0 2px 16px rgba(50, 70, 110, 0.06);
 }
 
+/* 🔹 Título principal */
 .contenedor-trabajos h2 {
   color: #244369;
   text-align: left;
@@ -21,7 +19,8 @@
   font-weight: 700;
 }
 
-.contenedor-trabajos .btn-primary {
+/* 🔹 Botón "Nuevo trabajo" */
+.btn-nuevo {
   font-weight: 600;
   font-size: 1em;
   padding: 8px 24px;
@@ -29,7 +28,8 @@
   border-radius: 6px;
 }
 
-.contenedor-trabajos .table {
+/* 🔹 Tabla */
+.table {
   width: 100%;
   border-radius: 7px;
   overflow: hidden;
@@ -37,72 +37,87 @@
   margin-bottom: 10px;
 }
 
-.contenedor-trabajos .table th {
+.table th {
   background: #f8fafc;
   font-size: 1.09em;
   color: #2c3e50;
   font-weight: 700;
   padding: 10px 12px;
-  letter-spacing: 0.01em;
   border-bottom: 2px solid #d8dee9;
 }
-.contenedor-trabajos .table td {
+
+.table td {
   font-size: 1em;
   padding: 10px 12px;
   background: #fff;
   border-bottom: 1px solid #edf0f7;
   vertical-align: middle;
 }
-.contenedor-trabajos .table-striped tbody tr:nth-of-type(even) td {
+
+.table-striped tbody tr:nth-of-type(even) td {
   background: #f5f7fb;
 }
 
-/* Botones pequeños */
-.contenedor-trabajos .btn-warning,
-.contenedor-trabajos .btn-danger {
+/* 🔹 Columna de acciones */
+.acciones {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px; /* separación uniforme entre botones */
+}
+
+/* 🔹 Botones de acción */
+.acciones .btn {
+  min-width: 90px; /* mantiene tamaños parejos */
   font-weight: 600;
-  font-size: 0.96em;
   border-radius: 5px;
-  padding: 6px 14px;
-  margin-right: 6px;
 }
 
-.contenedor-trabajos .btn-warning {
-  background: #ffc107;
-  color: #222c36;
+.acciones .btn-warning {
+  color: #fff;
+  background-color: #f0ad4e;
   border: none;
 }
-.contenedor-trabajos .btn-warning:hover {
-  background: #e0a800;
-  color: #161a1d;
-}
 
-.contenedor-trabajos .btn-danger {
-  background: #e74c3c;
+.acciones .btn-danger {
   color: #fff;
+  background-color: #d9534f;
   border: none;
 }
-.contenedor-trabajos .btn-danger:hover {
-  background: #ce3321;
-  color: #fff;
+
+/* 🔹 Efectos hover */
+.acciones .btn-warning:hover {
+  background-color: #ec971f;
 }
 
+.acciones .btn-danger:hover {
+  background-color: #c9302c;
+}
+
+/* 🔹 Responsive */
 @media (max-width: 700px) {
   .contenedor-trabajos {
-    padding: 10px 2vw;
+    padding: 10px 6vw;
     margin-top: 52px;
+    max-width: 96vw;
   }
-  .contenedor-trabajos .table th,
-  .contenedor-trabajos .table td {
-    padding: 8px 4px;
-    font-size: 0.98em;
-  }
+
   .contenedor-trabajos h2 {
     font-size: 1.12rem;
   }
-  .contenedor-trabajos .btn-primary {
+
+  .btn-nuevo {
     width: 100%;
     display: block;
-    margin-bottom: 13px;
+  }
+
+  .acciones {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .acciones .btn {
+    width: 100%;
   }
 }

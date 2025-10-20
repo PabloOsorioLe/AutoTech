@@ -5,92 +5,82 @@
       <thead>
         <tr>
           <th>Trabajo</th>
-          <ng-container *ngFor="let tecnico of tecnicos">
-            <th colspan="3" class="text-center">{{ tecnico | titlecase }}</th>
+          <ng-container *ngFor="let tecnico of tecnicos; let i = index">
+            <th colspan="3" class="text-center tecnico-header"
+                [ngClass]="{'separador-tecnico': i !== tecnicos.length - 1}">
+              {{ tecnico | titlecase }}
+            </th>
           </ng-container>
         </tr>
         <tr>
           <th></th>
-          <ng-container *ngFor="let tecnico of tecnicos">
-            <th>Débito</th>
-            <th>Efectivo</th>
-            <th>Transferencias</th>
+          <ng-container *ngFor="let tecnico of tecnicos; let i = index">
+            <th class="col-tecnico">Débito</th>
+            <th class="col-tecnico">Efectivo</th>
+            <th class="col-tecnico" [ngClass]="{'separador-tecnico': i !== tecnicos.length - 1}">Transf.</th>
           </ng-container>
         </tr>
       </thead>
-
       <tbody>
         <tr *ngFor="let trabajo of trabajos">
           <td>{{ trabajo }}</td>
-          <ng-container *ngFor="let tecnico of tecnicos">
-            <!-- Débito -->
-            <td (dblclick)="editing={trabajo, tecnico, tipo: 'debito'}">
-              <ng-container
-                *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'debito'; else showDebito">
-                <input
-                  type="number"
-                  class="cell-input"
+          <ng-container *ngFor="let tecnico of tecnicos; let i = index">
+            <td (click)="editing={trabajo, tecnico, tipo: 'debito'}">
+              <ng-container *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'debito'; else showDebito">
+                <input type="number" class="cell-input"
                   [value]="getMovimiento(trabajo, tecnico)?.debito || ''"
                   (blur)="setValor(trabajo, tecnico, 'debito', $any($event.target).valueAsNumber)"
                   (keydown.enter)="setValor(trabajo, tecnico, 'debito', $any($event.target).valueAsNumber)"
                   autofocus />
               </ng-container>
               <ng-template #showDebito>
-                {{ getMovimiento(trabajo, tecnico)?.debito || '' }}
+                {{ getMovimiento(trabajo, tecnico)?.debito | currency:'CLP':'':'1.0-0' }}
               </ng-template>
             </td>
-
-            <!-- Efectivo -->
-            <td (dblclick)="editing={trabajo, tecnico, tipo: 'efectivo'}">
-              <ng-container
-                *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'efectivo'; else showEfectivo">
-                <input
-                  type="number"
-                  class="cell-input"
+            <td (click)="editing={trabajo, tecnico, tipo: 'efectivo'}">
+              <ng-container *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'efectivo'; else showEfectivo">
+                <input type="number" class="cell-input"
                   [value]="getMovimiento(trabajo, tecnico)?.efectivo || ''"
                   (blur)="setValor(trabajo, tecnico, 'efectivo', $any($event.target).valueAsNumber)"
                   (keydown.enter)="setValor(trabajo, tecnico, 'efectivo', $any($event.target).valueAsNumber)"
                   autofocus />
               </ng-container>
               <ng-template #showEfectivo>
-                {{ getMovimiento(trabajo, tecnico)?.efectivo || '' }}
+                {{ getMovimiento(trabajo, tecnico)?.efectivo | currency:'CLP':'':'1.0-0' }}
               </ng-template>
             </td>
-
-            <!-- Transferencia -->
-            <td (dblclick)="editing={trabajo, tecnico, tipo: 'transferencia'}">
-              <ng-container
-                *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'transferencia'; else showTransf">
-                <input
-                  type="number"
-                  class="cell-input"
+            <td (click)="editing={trabajo, tecnico, tipo: 'transferencia'}" 
+                [ngClass]="{'separador-tecnico': i !== tecnicos.length - 1}">
+              <ng-container *ngIf="editing?.trabajo === trabajo && editing?.tecnico === tecnico && editing?.tipo === 'transferencia'; else showTransf">
+                <input type="number" class="cell-input"
                   [value]="getMovimiento(trabajo, tecnico)?.transferencia || ''"
                   (blur)="setValor(trabajo, tecnico, 'transferencia', $any($event.target).valueAsNumber)"
                   (keydown.enter)="setValor(trabajo, tecnico, 'transferencia', $any($event.target).valueAsNumber)"
                   autofocus />
               </ng-container>
               <ng-template #showTransf>
-                {{ getMovimiento(trabajo, tecnico)?.transferencia || '' }}
+                {{ getMovimiento(trabajo, tecnico)?.transferencia | currency:'CLP':'':'1.0-0' }}
               </ng-template>
             </td>
           </ng-container>
         </tr>
       </tbody>
-
       <tfoot>
         <tr>
           <td class="total-label">Totales</td>
-          <ng-container *ngFor="let tecnico of tecnicos">
+          <ng-container *ngFor="let tecnico of tecnicos; let i = index">
             <td class="total-cell">{{ getTotalPorTecnico(tecnico, 'debito') | number:'1.0-0' }}</td>
             <td class="total-cell">{{ getTotalPorTecnico(tecnico, 'efectivo') | number:'1.0-0' }}</td>
-            <td class="total-cell">{{ getTotalPorTecnico(tecnico, 'transferencia') | number:'1.0-0' }}</td>
+            <td class="total-cell" [ngClass]="{'separador-tecnico': i !== tecnicos.length - 1}">
+              {{ getTotalPorTecnico(tecnico, 'transferencia') | number:'1.0-0' }}
+            </td>
           </ng-container>
         </tr>
-
         <tr>
           <td class="total-label resumen-tecnico-label">Resumen por técnico</td>
-          <ng-container *ngFor="let tecnico of tecnicos">
-            <td colspan="3" class="total-general resumen-tecnico-cell">
+          <ng-container *ngFor="let tecnico of tecnicos; let i = index">
+            <td colspan="3" class="total-general resumen-tecnico-cell"
+                [ngClass]="{'separador-tecnico': i !== tecnicos.length - 1}">
               Neto: <b>{{ getTotalNetoPorTecnico(tecnico) | number:'1.0-0' }}</b><br>
               IVA (19%): <b>{{ getTotalIVAPorTecnico(tecnico) | number:'1.0-0' }}</b><br>
               Total + IVA: <b>{{ getTotalConIVAPorTecnico(tecnico) | number:'1.0-0' }}</b>
@@ -100,7 +90,6 @@
       </tfoot>
     </table>
 
-    <!-- Totales generales -->
     <div class="total-general-block">
       <table class="total-general-table">
         <tr>
@@ -118,36 +107,15 @@
       </table>
     </div>
   </div>
-
-  <!-- FAB + Calendario Material -->
-  <div class="calendar-widget">
-    <button
-      mat-fab
-      color="primary"
-      class="calendar-fab-material"
-      (click)="calendar.open()"
-      aria-label="Seleccionar fecha">
+    <div class="calendar-widget">
+    <button mat-fab color="primary" class="calendar-fab-material" (click)="calendar.open()">
       <mat-icon>calendar_month</mat-icon>
     </button>
+    <span class="calendar-selected-date">{{ selectedDate | date:'dd/MM/yyyy' }}</span>
 
-    <span class="calendar-selected-date">
-      {{ selectedDate | date:'dd/MM/yyyy' }}
-    </span>
-
-    <!-- Input oculto vinculado al datepicker -->
-    <input
-      matInput
-      [matDatepicker]="calendar"
-      [(ngModel)]="selectedDate"
-      hidden />
-
-  <mat-datepicker
-  #calendar
-  startView="month"
-  [startAt]="selectedDate"
-  [panelClass]="'calendar-panel-custom cdk-overlay-bottom-right'"
-  touchUi="false">
-
+    <input matInput [matDatepicker]="calendar" [(ngModel)]="selectedDate" hidden>
+    <mat-datepicker #calendar [panelClass]="'calendar-panel-custom'" startView="month" [startAt]="selectedDate" touchUi="false">
     </mat-datepicker>
   </div>
+
 </div>

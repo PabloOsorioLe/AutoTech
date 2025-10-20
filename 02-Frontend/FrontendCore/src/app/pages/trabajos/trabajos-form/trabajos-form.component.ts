@@ -6,7 +6,8 @@ import { Trabajo } from '../trabajos.model';
 
 @Component({
   selector: 'app-trabajos-form',
-  templateUrl: './trabajos-form.component.html'
+  templateUrl: './trabajos-form.component.html',
+  styleUrls: ['./trabajos-form.component.css'] // ✅ Agrega esta línea
 })
 export class TrabajosFormComponent implements OnInit {
   form!: FormGroup;

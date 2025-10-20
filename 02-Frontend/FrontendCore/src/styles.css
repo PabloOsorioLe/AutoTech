@@ -37,16 +37,3 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
-
-body .contenedor-trabajos  {
-  margin-top: 50px !important; /* Usa la altura real de tu navbar, mide con Inspector si hace falta */
-  z-index: 1;
-}
-
-@media (max-width: 800px) {
-  body .contenedor-trabajos  {
-    margin-top: 72px !important;
-  }
-}
-

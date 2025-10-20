@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
+import { MatDatepicker } from '@angular/material/datepicker';
 
 interface Movimiento {
   trabajo: string;
@@ -14,12 +15,10 @@ interface Movimiento {
   templateUrl: './control-movimiento.component.html',
   styleUrls: ['./control-movimiento.component.css']
 })
-export class ControlMovimientoComponent {
+export class ControlMovimientoComponent implements AfterViewInit {
 
-  constructor(private dateAdapter: DateAdapter<Date>) {
-    // Establece idioma español y formato de semana L-M-M-J-V-S-D
-    this.dateAdapter.setLocale('es-ES');
-  }
+  @ViewChild('calendar') calendar!: MatDatepicker<Date>;
+  @ViewChild('calendarButton') calendarButton!: ElementRef<HTMLButtonElement>;
 
   movimientos: Movimiento[] = [
     { trabajo: 'aceite bassol 10w40', tecnico: 'pedro', debito: 80000, efectivo: 0, transferencia: 0 },
@@ -35,11 +34,22 @@ export class ControlMovimientoComponent {
 
   editing: { trabajo: string, tecnico: string, tipo: 'debito' | 'efectivo' | 'transferencia' } | null = null;
 
-  // Guardar nuevo valor tras edición
+  constructor(private dateAdapter: DateAdapter<Date>) {
+    // Idioma español
+    this.dateAdapter.setLocale('es-ES');
+
+    // Cambiar los nombres de los días de la semana a L-M-M-J-V-S-D
+    this.dateAdapter.getDayOfWeekNames = (style: 'long' | 'short' | 'narrow') => {
+      return ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+    };
+  }
+
+  ngAfterViewInit() {
+    // Aquí podrías agregar lógica adicional si es necesario
+  }
+
   setValor(trabajo: string, tecnico: string, tipo: 'debito' | 'efectivo' | 'transferencia', valor: number) {
-    const mov = this.movimientos.find(
-      m => m.trabajo === trabajo && m.tecnico === tecnico
-    );
+    const mov = this.movimientos.find(m => m.trabajo === trabajo && m.tecnico === tecnico);
     if (mov) {
       mov[tipo] = valor;
     } else if (valor && valor > 0) {
@@ -53,94 +63,41 @@ export class ControlMovimientoComponent {
     this.editing = null;
   }
 
-  // Técnicos únicos
-  get tecnicos(): string[] {
-    return Array.from(new Set(this.movimientos.map(m => m.tecnico)));
-  }
-
-  // Trabajos únicos
-  get trabajos(): string[] {
-    return Array.from(new Set(this.movimientos.map(m => m.trabajo)));
-  }
-
+  get tecnicos(): string[] { return Array.from(new Set(this.movimientos.map(m => m.tecnico))); }
+  get trabajos(): string[] { return Array.from(new Set(this.movimientos.map(m => m.trabajo))); }
   getMovimiento(trabajo: string, tecnico: string): Movimiento | undefined {
     return this.movimientos.find(m => m.trabajo === trabajo && m.tecnico === tecnico);
   }
 
-  // Totales por técnico y tipo
   getTotalPorTecnico(tecnico: string, tipo: keyof Movimiento): number {
-    return this.movimientos
-      .filter(m => m.tecnico === tecnico)
+    return this.movimientos.filter(m => m.tecnico === tecnico)
       .reduce((sum, m) => sum + Number(m[tipo] || 0), 0);
   }
 
-  // Totales generales
-  getTotalGeneral(tipo: keyof Movimiento): number {
-    return this.movimientos.reduce((sum, m) => sum + Number(m[tipo] || 0), 0);
-  }
-
-  // Totales con IVA
-  getTotalNetoGeneral(): number {
-    return this.movimientos.reduce(
-      (sum, m) => sum + m.debito + m.efectivo + m.transferencia,
-      0
-    );
-  }
-
-  getTotalIVA(): number {
-    return this.getTotalNetoGeneral() * 0.19;
-  }
-
-  getTotalConIVA(): number {
-    return this.getTotalNetoGeneral() * 1.19;
-  }
-
-  getTotalPorTecnicoGeneral(tecnico: string): number {
-    return (
-      this.getTotalPorTecnico(tecnico, 'debito') +
-      this.getTotalPorTecnico(tecnico, 'efectivo') +
-      this.getTotalPorTecnico(tecnico, 'transferencia')
-    );
-  }
-
-  getTotalNetoPorTecnico(tecnico: string): number {
+  getTotalNetoPorTecnico(tecnico: string) {
     return this.getTotalPorTecnico(tecnico, 'debito') +
            this.getTotalPorTecnico(tecnico, 'efectivo') +
            this.getTotalPorTecnico(tecnico, 'transferencia');
   }
+  getTotalIVAPorTecnico(tecnico: string) { return this.getTotalNetoPorTecnico(tecnico) * 0.19; }
+  getTotalConIVAPorTecnico(tecnico: string) { return this.getTotalNetoPorTecnico(tecnico) * 1.19; }
 
-  getTotalIVAPorTecnico(tecnico: string): number {
-    return this.getTotalNetoPorTecnico(tecnico) * 0.19;
-  }
+  getTotalNetoGeneral() { return this.movimientos.reduce((sum, m) => sum + m.debito + m.efectivo + m.transferencia, 0); }
+  getTotalIVA() { return this.getTotalNetoGeneral() * 0.19; }
+  getTotalConIVA() { return this.getTotalNetoGeneral() * 1.19; }
 
-  getTotalConIVAPorTecnico(tecnico: string): number {
-    return this.getTotalNetoPorTecnico(tecnico) * 1.19;
-  }
-
-  // 📅 Control del calendario
   selectedDate: Date = new Date();
-  showCalendar: boolean = false;
-  calendarPosition = { top: '0px', left: '0px' };
 
-  toggleCalendar(event: MouseEvent) {
-    const icon = event.currentTarget as HTMLElement;
-    const rect = icon.getBoundingClientRect();
-
-    // Posicionar debajo a la derecha
-    this.calendarPosition = {
-      top: `${rect.bottom + window.scrollY + 5}px`,
-      left: `${rect.right - 250}px`
-    };
-
-    this.showCalendar = !this.showCalendar;
-  }
-
-  onDateChange(event: any) {
-    const value = event.value;
-    if (value) {
-      this.selectedDate = new Date(value);
-      // Aquí podrías refrescar datos según fecha
-    }
-    this.showCalendar = false;
+  // Abrir el calendario alineado a la derecha y abajo del botón
+  openCalendar() {
+    this.calendar.open();
+    setTimeout(() => {
+      const panel = document.querySelector('.cdk-overlay-pane.mat-datepicker-popup') as HTMLElement;
+      if (panel && this.calendarButton) {
+        const rect = this.calendarButton.nativeElement.getBoundingClientRect();
+        panel.style.top = `${rect.bottom + window.scrollY}px`;
+        panel.style.left = `${rect.right - panel.offsetWidth}px`;
+      }
+    });
   }
 }
