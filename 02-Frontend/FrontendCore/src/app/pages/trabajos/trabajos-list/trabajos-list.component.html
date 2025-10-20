@@ -16,16 +16,12 @@
     </thead>
     <tbody>
       <tr *ngFor="let trabajo of trabajos">
-        <td>{{ trabajo.titulo }}</td>
-        <td>{{ trabajo.descripcion }}</td>
-        <td>{{ trabajo.estado }}</td>
-        <td class="acciones">
-          <button (click)="editar(trabajo.id)" class="btn btn-sm btn-warning">
-            Editar
-          </button>
-          <button (click)="eliminar(trabajo.id)" class="btn btn-sm btn-danger">
-            Eliminar
-          </button>
+        <td data-label="Título">{{ trabajo.titulo }}</td>
+        <td data-label="Descripción">{{ trabajo.descripcion }}</td>
+        <td data-label="Estado">{{ trabajo.estado }}</td>
+        <td data-label="Acciones" class="acciones">
+          <button (click)="editar(trabajo.id)" class="btn btn-warning">Editar</button>
+          <button (click)="eliminar(trabajo.id)" class="btn btn-danger">Eliminar</button>
         </td>
       </tr>
     </tbody>
