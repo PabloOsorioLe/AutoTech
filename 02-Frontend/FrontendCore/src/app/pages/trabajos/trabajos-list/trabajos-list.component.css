@@ -1,123 +1,189 @@
+/* 🔹 Reset y consistencia */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+}
+
 /* 🔹 Contenedor general */
 .contenedor-trabajos {
-  margin-top: 4cqmax;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 40px auto;
   max-width: 1080px;
-  background: #fff;
-  border-radius: 10px;
-  padding: 22px 32px 28px 32px;
-  box-shadow: 0 2px 16px rgba(50, 70, 110, 0.06);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 24px 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-/* 🔹 Título principal */
+/* 🔹 Título */
 .contenedor-trabajos h2 {
-  color: #244369;
-  text-align: left;
-  margin-bottom: 1.2em;
-  font-size: 1.44rem;
+  font-size: 1.5rem;
   font-weight: 700;
+  color: #1f3a5f;
+  margin-bottom: 20px;
 }
 
-/* 🔹 Botón "Nuevo trabajo" */
+/* 🔹 Botón Nuevo */
 .btn-nuevo {
+  background-color: #4a90e2;
+  color: #fff;
   font-weight: 600;
-  font-size: 1em;
-  padding: 8px 24px;
-  margin-bottom: 18px;
-  border-radius: 6px;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 20px;
+}
+
+.btn-nuevo:hover {
+  background-color: #357ab8;
 }
 
 /* 🔹 Tabla */
 .table {
   width: 100%;
-  border-radius: 7px;
+  border-collapse: collapse;
+  border-radius: 10px;
   overflow: hidden;
-  background: #f6f8fc;
-  margin-bottom: 10px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+
+.table th, .table td {
+  padding: 14px 16px;
+  text-align: left;
 }
 
 .table th {
-  background: #f8fafc;
-  font-size: 1.09em;
-  color: #2c3e50;
+  background: #f3f6fb;
   font-weight: 700;
-  padding: 10px 12px;
-  border-bottom: 2px solid #d8dee9;
+  color: #1f3a5f;
+  font-size: 1.05rem;
+  border-bottom: 2px solid #d0d7e0;
 }
 
 .table td {
-  font-size: 1em;
-  padding: 10px 12px;
-  background: #fff;
-  border-bottom: 1px solid #edf0f7;
+  background: #ffffff;
+  font-size: 1rem;
+  color: #333;
+  border-bottom: 1px solid #e6ebf0;
   vertical-align: middle;
 }
 
+/* Filas alternas */
 .table-striped tbody tr:nth-of-type(even) td {
-  background: #f5f7fb;
+  background: #f9fbfd;
 }
 
-/* 🔹 Columna de acciones */
+/* Hover */
+.table tbody tr:hover td {
+  background-color: #e6f0fa;
+}
+
+/* Bordes redondeados extremos */
+.table th:first-child {
+  border-top-left-radius: 10px;
+}
+.table th:last-child {
+  border-top-right-radius: 10px;
+}
+.table tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+.table tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
+
+/* 🔹 Acciones */
 .acciones {
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px; /* separación uniforme entre botones */
+  gap: 10px;
 }
 
-/* 🔹 Botones de acción */
 .acciones .btn {
-  min-width: 90px; /* mantiene tamaños parejos */
+  padding: 6px 16px;
+  font-size: 0.95rem;
   font-weight: 600;
-  border-radius: 5px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
 }
 
 .acciones .btn-warning {
-  color: #fff;
   background-color: #f0ad4e;
-  border: none;
+  color: #fff;
+}
+
+.acciones .btn-warning:hover {
+  background-color: #ec971f;
+  transform: translateY(-1px);
 }
 
 .acciones .btn-danger {
-  color: #fff;
   background-color: #d9534f;
-  border: none;
-}
-
-/* 🔹 Efectos hover */
-.acciones .btn-warning:hover {
-  background-color: #ec971f;
+  color: #fff;
 }
 
 .acciones .btn-danger:hover {
   background-color: #c9302c;
+  transform: translateY(-1px);
 }
 
-/* 🔹 Responsive */
+/* 🔹 Responsive (< 700px) */
 @media (max-width: 700px) {
   .contenedor-trabajos {
-    padding: 10px 6vw;
-    margin-top: 52px;
-    max-width: 96vw;
-  }
-
-  .contenedor-trabajos h2 {
-    font-size: 1.12rem;
+    padding: 16px 4vw;
+    margin-top: 20px;
   }
 
   .btn-nuevo {
     width: 100%;
+  }
+
+  .table, .table thead, .table tbody, .table tr, .table th, .table td {
     display: block;
+    width: 100%;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tr {
+    margin-bottom: 16px;
+    background: #fff;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.04);
+  }
+
+  .table td {
+    text-align: left;
+    padding: 8px 12px;
+    position: relative;
+    border-bottom: none;
+    font-size: 0.95rem;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    color: #1f3a5f;
+    display: block;
+    margin-bottom: 4px;
   }
 
   .acciones {
     flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
     align-items: stretch;
-    gap: 6px;
   }
 
   .acciones .btn {
     width: 100%;
+    padding: 10px 0;
   }
 }
