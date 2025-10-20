@@ -5,37 +5,37 @@
   padding: 0.8rem 0 1.2rem 0;
   background: #f5f8fc;
   border-radius: 0.6em;
-  box-shadow: none;
 }
+
 h2 {
   color: #375a7f;
   font-size: 1.08rem;
   text-align: center;
-  margin-bottom: 1.0rem;
+  margin-bottom: 1rem;
 }
+
 .table-responsive {
   width: 100%;
-  max-width: 100%;
   overflow-x: auto;
-  margin: 0;
-  padding: 0;
 }
+
 .tabla-movimiento {
   width: 100%;
   min-width: 700px;
-  table-layout: auto;
   border-collapse: collapse;
   background: #fff;
   font-size: 0.96em;
 }
+
 .tabla-movimiento th,
 .tabla-movimiento td {
   border: 1px solid #b2becd;
   padding: 0.32rem 0.54rem;
   text-align: right;
   font-variant-numeric: tabular-nums;
-  min-width: 74px;
+  min-width: 60px;
 }
+
 .tabla-movimiento th:first-child,
 .tabla-movimiento td:first-child {
   text-align: left;
@@ -43,31 +43,64 @@ h2 {
   max-width: 240px;
   width: 18vw;
   background: #e8eaf6;
+  position: sticky;
+  left: 0;
+  z-index: 10;
 }
-.tabla-movimiento th.text-center {
+
+.tabla-movimiento th:first-child { z-index: 20; }
+.tabla-movimiento th.text-center { text-align: center; }
+
+/* Separador visual entre técnicos, SOLO al borde derecho del último campo de cada técnico */
+.tabla-movimiento th.separador-tecnico,
+.tabla-movimiento td.separador-tecnico {
+  border-right: 2.5px solid #b9bdcb !important;
+}
+
+/* Inputs de tabla compactos y centrados */
+.tabla-movimiento td input.cell-input {
+  width: 55px;
+  padding: 2px 4px;
   text-align: center;
+  font-size: 0.92em;
+  border-radius: 3px;
+  border: 1px solid #a8b3bc;
+  background: #f8fafb;
 }
-.total-label {
-  text-align: right;
-  font-weight: bold;
-  background: #fcf7e8;
-}
-.total-cell {
-  font-weight: 600;
-  background: #fcfff4;
-}
-.total-general {
-  font-weight: 700;
-  background: #e4fee0;
-  color: #143d1f;
+
+/* Inputs centrados y a todo ancho en móvil */
+.tabla-movimiento td input.cell-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2px 4px;
   text-align: center;
+  font-size: 0.92em;
+  border-radius: 3px;
+  border: 1px solid #a8b3bc;
+  background: #f8fafb;
 }
-.resumen-tecnico-label {
-  text-align: right;
-  font-weight: bold;
-  background: #eaf3ff;
-  color: #2b4b66;
+
+/* Primera columna no lleva borde izquierdo extra */
+.tabla-movimiento th:first-child,
+.tabla-movimiento td:first-child {
+  border-left: 1px solid #b2becd;
 }
+
+/* Columnas de técnico: ancho fijo y centrado */
+.tabla-movimiento th.col-tecnico,
+.tabla-movimiento td {
+  min-width: 80px;
+  max-width: 80px;
+  width: 80px;
+  text-align: center;
+  border-left: 1.5px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Totales y resumen */
+.total-label { text-align: right; font-weight: bold; background: #fcf7e8; }
+.total-cell { font-weight: 600; background: #fcfff4; }
+.total-general { font-weight: 700; background: #e4fee0; color: #143d1f; text-align: center; }
+.resumen-tecnico-label { text-align: right; font-weight: bold; background: #eaf3ff; color: #2b4b66; }
 .resumen-tecnico-cell {
   background: #eefdf6;
   color: #183d1e;
@@ -77,141 +110,31 @@ h2 {
   border-top: 2.5px solid #b7c9e3;
   border-bottom: 2.5px solid #b7c9e3;
 }
-.resumen-tecnico-cell b {
-  color: #22397b;
-}
-.totales-generales {
-  margin-top: 14px;
-}
-.only-border-right {
-  border-right: 2.5px solid #515b6c;
-  padding: 4px 16px 4px 0;
-  margin-bottom: 2px;
-  text-align: right;
-  min-width: 170px;
-  font-weight: 700;
-  color: #234d29;
-  background: #f4f5fa;
-}
-.cell-input {
-  width: 67px;
-  font-size: 0.99em;
-  padding: 2px 5px;
-  border-radius: 3px;
-  border: 1px solid #a8b3bc;
-  text-align: right;
-  background: #f8fafb;
-}
-@media (max-width: 900px) {
-  .tabla-movimiento th,
-  .tabla-movimiento td {
-    font-size: 0.92em;
-    padding: 0.16rem 0.18rem;
-    min-width: 70px;
-  }
-  .tabla-movimiento th:first-child,
-  .tabla-movimiento td:first-child {
-    min-width: 88px;
-    font-size: 0.99em;
-    width: 24vw;
-  }
-  .container-control-movimiento {
-    padding: 0.32rem 0 0.45rem 0;
-    border-radius: 0.2em;
-  }
-}
-@media (max-width: 600px) {
-  .tabla-movimiento th,
-  .tabla-movimiento td {
-    font-size: 0.81em;
-    padding: 0.08rem 0.18rem;
-    min-width: 58px;
-  }
-  h2 {
-    font-size: 0.89rem;
-  }
-  .container-control-movimiento {
-    padding: 0.12rem 0 0.36rem 0;
-  }
-}
+.resumen-tecnico-cell b { color: #22397b; }
+
+/* Bloque de total general */
 .total-general-block {
   margin: 10px 0 0 auto;
   padding: 0;
-  box-sizing: border-box;
-  max-width: 285px;           /* Más pequeño */
+  max-width: 285px;
   background: #fff;
   border: 2.2px solid #212121;
   border-radius: 12px;
-  box-shadow: 0 2px 6px 0 rgba(60,70,80,0.07);
-  display: block;
-}
-.total-general-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  background: transparent;
-}
-.labels-col {
-  text-align: right;
-  vertical-align: middle;
-  background: transparent;
-  font-size: 0.93em;
-  color: #164676;
-  font-weight: bold;
-  padding: 5px 4px 5px 0 !important;
-  width: 51%;
-}
-.values-col {
-  text-align: center;
-  vertical-align: middle;
-  background: transparent;
-  font-size: 1em;
-  font-weight: 700;
-  padding: 5px 2px 5px 2px !important;
-  width: 49%;
-}
-.label-row, .value-row {
-  margin: 2px 0;
-  line-height: 1.04em;
-}
-.neto-value {
-  color: #215d09;
-  font-size: 1.08em;
-}
-.iva-value {
-  color: #a11717;
-  font-size: 1.08em;
-}
-.total-iva-value {
-  color: #107e5c;
-  font-size: 1.09em;
-  font-weight: 700;
-}
-.total-iva-row {
-  font-weight: 700;
-}
-/* Si el monto excede el ancho, el contenedor crece */
-.total-general-block .value-row {
-  word-break: break-word;
-  font-size: 1.04em;
-  padding: 0;
-}
-@media (max-width: 600px) {
-  .total-general-block {
-    max-width: 99vw;
-    border-radius: 7px;
-    margin: 7px 0 0 auto;
-    padding: 0;
-  }
-  .labels-col, .values-col {
-    font-size: 0.88em;
-    padding: 3px 1px 3px 1px !important;
-  }
+  box-shadow: 0 2px 6px rgba(60,70,80,0.07);
 }
 
-/* ----- CAMBIOS PARA FAB Y CALENDARIO ----- */
+.total-general-table { width: 100%; border-collapse: separate; border-spacing: 0; }
 
-/* ==================== CALENDARIO AJUSTADO ==================== */
+.labels-col { text-align: right; font-size: 0.93em; font-weight: bold; width: 51%; padding: 5px 4px 5px 0 !important; color: #164676; }
+.values-col { text-align: center; font-size: 1em; font-weight: 700; width: 49%; padding: 5px 2px !important; }
+
+.label-row, .value-row { margin: 2px 0; line-height: 1.04em; }
+.neto-value { color: #215d09; font-size: 1.08em; }
+.iva-value { color: #a11717; font-size: 1.08em; }
+.total-iva-value { color: #107e5c; font-size: 1.09em; font-weight: 700; }
+.total-iva-row { font-weight: 700; }
+
+/* FAB y calendario */
 .calendar-widget {
   position: fixed;
   bottom: 20px;
@@ -222,7 +145,6 @@ h2 {
   z-index: 2000;
 }
 
-/* FAB - botón circular */
 .calendar-fab-material {
   width: 52px !important;
   height: 52px !important;
@@ -230,19 +152,15 @@ h2 {
   background: #900C3F !important;
   color: #fff !important;
   border-radius: 50% !important;
-  box-shadow: 0 4px 14px rgba(30, 40, 60, 0.25) !important;
+  box-shadow: 0 4px 14px rgba(30,40,60,0.25) !important;
   border: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: transform 0.2s, background 0.2s;
 }
-.calendar-fab-material:hover {
-  background: #7b0a35 !important;
-  transform: scale(1.07);
-}
+.calendar-fab-material:hover { background: #7b0a35 !important; transform: scale(1.07); }
 
-/* Fecha seleccionada */
 .calendar-selected-date {
   font-size: 1.1em;
   color: #154585;
@@ -251,36 +169,26 @@ h2 {
   border: 1.3px solid #bdd0ea;
   border-radius: 8px;
   padding: 5px 18px;
-  box-shadow: 0 2px 9px rgba(60, 70, 80, 0.09);
   min-width: 90px;
   text-align: center;
-  letter-spacing: 0.02em;
 }
 
-/* En móvil, que el FAB esté arriba centrado, y desaparezca de abajo */
 @media (max-width: 700px) {
-  .calendar-widget {
-    position: static !important;
-    right: auto !important;
-    bottom: auto !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100vw;
-    margin: 12px 0 8px;
-    gap: 12px;
-    justify-content: center;
-    z-index: 1050;
-    background: transparent;
-  }
-  .calendar-fab-material {
-    width: 48px !important;
-    height: 48px !important;
-    font-size: 1.3em !important;
-    margin-bottom: 0;
-  }
-  .calendar-selected-date {
-    font-size: 1em;
-    min-width: 82px;
-    padding: 4px 10px;
-  }
+  .calendar-widget { position: static !important; top: 0; left: 0; width: 100vw; margin: 12px 0; gap: 12px; justify-content: right; }
+  .calendar-fab-material { width: 48px !important; height: 48px !important; font-size: 1.3em !important; }
+  .calendar-selected-date { font-size: 1em; min-width: 82px; padding: 4px 10px; }
 }
+
+.cdk-overlay-pane.calendar-panel-custom.cdk-overlay-bottom-right {
+  position: fixed !important;
+  right: 40px !important;
+  bottom: 80px !important;
+  transform: none !important;
+  z-index: 2500 !important;
+}
+.mat-datepicker-content { box-shadow: 0 6px 18px rgba(0,0,0,0.25); border-radius: 10px; overflow: hidden; }
+
+@media (max-width: 700px) {
+ 
+}
+
