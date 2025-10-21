@@ -1,0 +1,75 @@
+<div class="container-aceite-filtro">
+  <h2>Registro de Aceite & Filtro</h2>
+
+  <div class="table-responsive">
+    <table class="tabla-movimiento">
+      <thead>
+        <tr>
+          <th>Trabajador</th>
+          <th>Débito</th>
+          <th>Efectivo</th>
+          <th>Transf.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let registro of registros">
+          <td>{{ registro.trabajador }}</td>
+          <td (click)="editar(registro, 'debito')">
+            <ng-container *ngIf="editing?.trabajador === registro.trabajador && editing?.campo === 'debito'; else showDebito">
+              <input type="number" class="cell-input"
+                     [ngModel]="registro.debito"
+                     (ngModelChange)="registro.debito = +$event"
+                     (blur)="editing=null"
+                     (keydown.enter)="editing=null"
+                     autofocus />
+            </ng-container>
+            <ng-template #showDebito>{{ registro.debito | number:'1.0-0' }}</ng-template>
+          </td>
+          <td (click)="editar(registro, 'efectivo')">
+            <ng-container *ngIf="editing?.trabajador === registro.trabajador && editing?.campo === 'efectivo'; else showEfectivo">
+              <input type="number" class="cell-input"
+                     [ngModel]="registro.efectivo"
+                     (ngModelChange)="registro.efectivo = +$event"
+                     (blur)="editing=null"
+                     (keydown.enter)="editing=null"
+                     autofocus />
+            </ng-container>
+            <ng-template #showEfectivo>{{ registro.efectivo | number:'1.0-0' }}</ng-template>
+          </td>
+          <td (click)="editar(registro, 'transferencia')">
+            <ng-container *ngIf="editing?.trabajador === registro.trabajador && editing?.campo === 'transferencia'; else showTransf">
+              <input type="number" class="cell-input"
+                     [ngModel]="registro.transferencia"
+                     (ngModelChange)="registro.transferencia = +$event"
+                     (blur)="editing=null"
+                     (keydown.enter)="editing=null"
+                     autofocus />
+            </ng-container>
+            <ng-template #showTransf>{{ registro.transferencia | number:'1.0-0' }}</ng-template>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>Totales</th>
+          <th>{{ getTotal('debito') | number:'1.0-0' }}</th>
+          <th>{{ getTotal('efectivo') | number:'1.0-0' }}</th>
+          <th>{{ getTotal('transferencia') | number:'1.0-0' }}</th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <!-- Bloque de totales alineado derecha -->
+  <div class="total-general-block-right">
+    <div class="total-row">
+      <span class="neto-value">Neto: {{ getTotalNeto() | number:'1.0-0' }}</span>
+    </div>
+    <div class="total-row">
+      <span class="iva-value">IVA (19%): {{ getTotalIVA() | number:'1.0-0' }}</span>
+    </div>
+    <div class="total-row">
+      <span class="total-value">Total + IVA: {{ getTotalConIVA() | number:'1.0-0' }}</span>
+    </div>
+  </div>
+</div>
