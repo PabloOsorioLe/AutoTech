@@ -49,6 +49,9 @@ export class NavbarComponent {
     } else if (url.startsWith('/trabajos')) {
       this.tituloActual = 'Mantenedor de Trabajos';
       this.iconoActual = 'bi-clipboard-data';
+    } else if (url.startsWith('/cambio-aceite-filtro')) {
+      this.tituloActual = 'Aceite & Filtro';
+      this.iconoActual = 'bi-droplet-half';
     } else {
       this.tituloActual = 'Inicio';
       this.iconoActual = 'bi-house';

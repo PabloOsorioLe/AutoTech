@@ -1,0 +1,61 @@
+.container-aceite-filtro {
+  margin-top: 60px;
+  width: 98vw;
+  max-width: 99vw;
+  padding: 1.2rem 1rem;
+  background: #f7fbfc;
+  border-radius: 0.65em;
+}
+.tabla-movimiento {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.97em;
+  background: #fff;
+}
+.tabla-movimiento th, .tabla-movimiento td {
+  border: 1px solid #b2becd;
+  padding: 0.45rem 0.6rem;
+  text-align: right;
+  min-width: 85px;
+}
+.tabla-movimiento th:first-child, .tabla-movimiento td:first-child {
+  text-align: left;
+  background: #e8eaf6;
+  position: sticky;
+  left: 0;
+  z-index: 10;
+}
+.cell-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 2px 4px;
+  text-align: center;
+  font-size: 0.95em;
+  border-radius: 3px;
+  border: 1px solid #a8b3bc;
+  background: #f8fafb;
+}
+.resumen-tecnico-cell { background: #eefdf6; color: #183d1e; font-size: 0.98em; font-weight: 600; text-align: left;}
+.resumen-tecnico-cell b { color: #22397b; }
+
+
+.total-general-block-right {
+  margin-top: 12px;
+  margin-right: 0px;
+  text-align: right;
+  background: #eaf3ff;
+  border-radius: 10px;
+  padding: 14px 26px;
+  max-width: 320px;
+  float: right;
+  box-shadow: 0 2px 8px rgba(40,60,128,0.04);
+}
+
+.total-row {
+  font-size: 1.09em;
+  margin-bottom: 4px;
+}
+
+.neto-value { color: #215d09; font-weight: bold; }
+.iva-value { color: #a11717; font-weight: bold; }
+.total-value { color: #107e5c; font-weight: bold; }
