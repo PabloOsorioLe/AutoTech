@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <--- Agrega esta línea
+import { FormsModule } from '@angular/forms'; 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+
 import { CambioAceiteFiltroListComponent } from './cambio-aceite-filtro-list/cambio-aceite-filtro-list.component';
 import { CambioAceiteFiltroRoutingModule } from './cambio-aceite-filtro-routing.module';
 
@@ -11,7 +17,12 @@ import { CambioAceiteFiltroRoutingModule } from './cambio-aceite-filtro-routing.
   ],
   imports: [
     CommonModule,
-    FormsModule, // <--- Incluye FormsModule aquí
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatIconModule,
+    MatButtonModule,
+    MatInputModule,
     CambioAceiteFiltroRoutingModule,
     // otros imports
   ]

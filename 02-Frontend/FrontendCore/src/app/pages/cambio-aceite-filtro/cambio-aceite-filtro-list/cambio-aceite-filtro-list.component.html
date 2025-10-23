@@ -72,4 +72,19 @@
       <span class="total-value">Total + IVA: {{ getTotalConIVA() | number:'1.0-0' }}</span>
     </div>
   </div>
+
+  <!-- Bloque de calendario flotante -->
+  <div class="calendar-widget">
+    <button mat-fab color="primary" class="calendar-fab-material" (click)="openCalendar()" #calendarButton>
+      <mat-icon>calendar_month</mat-icon>
+    </button>
+    <span class="calendar-selected-date">{{ selectedDate | date:'dd/MM/yyyy' }}</span>
+    <input matInput [matDatepicker]="calendar" [(ngModel)]="selectedDate" hidden>
+    <mat-datepicker #calendar
+      [panelClass]="'calendar-panel-custom'"
+      startView="month"
+      [startAt]="selectedDate"
+      touchUi="false">
+    </mat-datepicker>
+  </div>
 </div>

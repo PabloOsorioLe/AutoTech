@@ -76,28 +76,53 @@ export class ControlMovimientoComponent implements AfterViewInit {
 
   getTotalNetoPorTecnico(tecnico: string) {
     return this.getTotalPorTecnico(tecnico, 'debito') +
-           this.getTotalPorTecnico(tecnico, 'efectivo') +
-           this.getTotalPorTecnico(tecnico, 'transferencia');
+      this.getTotalPorTecnico(tecnico, 'efectivo') +
+      this.getTotalPorTecnico(tecnico, 'transferencia');
   }
-  getTotalIVAPorTecnico(tecnico: string) { return this.getTotalNetoPorTecnico(tecnico) * 0.19; }
-  getTotalConIVAPorTecnico(tecnico: string) { return this.getTotalNetoPorTecnico(tecnico) * 1.19; }
+  getTotalIVAPorTecnico(tecnico: string) {
+    const baseIVA = this.getTotalPorTecnico(tecnico, 'debito') + this.getTotalPorTecnico(tecnico, 'transferencia');
+    return baseIVA * 0.19;
+  }
+  getTotalConIVAPorTecnico(tecnico: string) {
+    const neto = this.getTotalNetoPorTecnico(tecnico);
+    const baseIVA = this.getTotalPorTecnico(tecnico, 'debito') + this.getTotalPorTecnico(tecnico, 'transferencia');
+    return neto + baseIVA * 0.19;
+  }
 
   getTotalNetoGeneral() { return this.movimientos.reduce((sum, m) => sum + m.debito + m.efectivo + m.transferencia, 0); }
-  getTotalIVA() { return this.getTotalNetoGeneral() * 0.19; }
-  getTotalConIVA() { return this.getTotalNetoGeneral() * 1.19; }
+  getTotalIVA() {
+    const baseIVA = this.movimientos.reduce((sum, m) => sum + m.debito + m.transferencia, 0);
+    return baseIVA * 0.19;
+  }
+  getTotalConIVA() {
+    const neto = this.getTotalNetoGeneral();
+    const baseIVA = this.movimientos.reduce((sum, m) => sum + m.debito + m.transferencia, 0);
+    return neto + baseIVA * 0.19;
+  }
 
   selectedDate: Date = new Date();
 
   // Abrir el calendario alineado a la derecha y abajo del botón
-  openCalendar() {
-    this.calendar.open();
-    setTimeout(() => {
-      const panel = document.querySelector('.cdk-overlay-pane.mat-datepicker-popup') as HTMLElement;
-      if (panel && this.calendarButton) {
-        const rect = this.calendarButton.nativeElement.getBoundingClientRect();
-        panel.style.top = `${rect.bottom + window.scrollY}px`;
-        panel.style.left = `${rect.right - panel.offsetWidth}px`;
-      }
-    });
-  }
+openCalendar() {
+  this.calendar.open();
+  setTimeout(() => {
+    const panel = document.querySelector('.cdk-overlay-pane.mat-datepicker-popup') as HTMLElement;
+    if (panel && this.calendarButton) {
+      const rect = this.calendarButton.nativeElement.getBoundingClientRect();
+      // Ajustes manuales
+      panel.style.position = 'fixed';
+      panel.style.left = `${rect.right - panel.offsetWidth + 132}px`;  // mueve más a la derecha (+36 es ejemplo)
+      panel.style.top = `${rect.top - 360}px`;                         // mueve más arriba (-24 es ejemplo)
+      panel.style.width = '400px';                                    // más ancho para el calendario
+      panel.style.minWidth = '340px';
+      panel.style.maxWidth = '400px';
+      panel.style.transform = 'none';
+      panel.style.zIndex = '3000';
+    }
+  }, 50);
+}
+
+
+
+
 }
