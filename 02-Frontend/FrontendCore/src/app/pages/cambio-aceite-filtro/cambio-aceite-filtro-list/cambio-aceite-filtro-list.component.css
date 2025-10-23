@@ -35,7 +35,13 @@
   border: 1px solid #a8b3bc;
   background: #f8fafb;
 }
-.resumen-tecnico-cell { background: #eefdf6; color: #183d1e; font-size: 0.98em; font-weight: 600; text-align: left;}
+.resumen-tecnico-cell { 
+  background: #eefdf6; 
+  color: #183d1e; 
+  font-size: 0.98em; 
+  font-weight: 600; 
+  text-align: left;
+}
 .resumen-tecnico-cell b { color: #22397b; }
 
 
@@ -59,3 +65,101 @@
 .neto-value { color: #215d09; font-weight: bold; }
 .iva-value { color: #a11717; font-weight: bold; }
 .total-value { color: #107e5c; font-weight: bold; }
+
+
+/* Estilos calendario flotante - esquina inferior derecha */
+.calendar-widget {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 2000;
+}
+
+.calendar-fab-material {
+  width: 52px !important;
+  height: 52px !important;
+  font-size: 1.6em !important;
+  background: #900C3F !important;
+  color: #fff !important;
+  border-radius: 50% !important;
+  box-shadow: 0 4px 14px rgba(30,40,60,0.25) !important;
+  border: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.calendar-fab-material:hover { 
+  background: #7b0a35 !important; 
+  transform: scale(1.07); 
+}
+
+.calendar-selected-date {
+  font-size: 1.1em;
+  color: #154585;
+  font-weight: 600;
+  background: #ecf5ff;
+  border: 1.3px solid #bdd0ea;
+  border-radius: 8px;
+  padding: 5px 18px;
+  min-width: 90px;
+  text-align: center;
+}
+
+.cdk-overlay-pane.calendar-panel-custom.cdk-overlay-bottom-right {
+  position: fixed !important;
+  right: 40px !important;
+  bottom: 80px !important;
+  transform: none !important;
+  z-index: 2500 !important;
+}
+
+.mat-datepicker-content {
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cdk-overlay-pane.mat-datepicker-popup {
+  width: 440px !important;
+  min-width: 420px !important;
+  max-width: 470px !important;
+  height: 485px !important;
+  min-height: 370px !important;
+  max-height: 610px !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  border-radius: 12px;
+}
+
+.mat-datepicker-content {
+  width: 100% !important;
+  min-width: 420px !important;
+  max-width: 470px !important;
+  height: 485px !important;
+  min-height: 370px !important;
+  max-height: 610px !important;
+}
+
+.mat-calendar {
+  flex: 1 1 auto;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 420px !important;
+  max-width: 470px !important;
+  min-height: 320px !important;
+  max-height: 560px !important;
+}
+
+@media (max-width: 700px) {
+  .cdk-overlay-pane.mat-datepicker-popup {
+    right: 12px !important;
+    bottom: 70px !important;
+    min-width: 280px !important;
+    max-width: 99vw !important;
+    height: auto !important;
+  }
+}

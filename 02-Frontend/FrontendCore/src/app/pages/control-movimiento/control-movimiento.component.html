@@ -111,7 +111,7 @@
   </div>
 
   <div class="calendar-widget">
-    <button mat-fab color="primary" class="calendar-fab-material" (click)="calendar.open()">
+    <button mat-fab color="primary" class="calendar-fab-material" (click)="openCalendar()" #calendarButton>
       <mat-icon>calendar_month</mat-icon>
     </button>
     <span class="calendar-selected-date">{{ selectedDate | date:'dd/MM/yyyy' }}</span>

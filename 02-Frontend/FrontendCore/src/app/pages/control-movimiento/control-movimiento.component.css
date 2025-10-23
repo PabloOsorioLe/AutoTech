@@ -179,16 +179,46 @@ h2 {
   .calendar-selected-date { font-size: 1em; min-width: 82px; padding: 4px 10px; }
 }
 
-.cdk-overlay-pane.calendar-panel-custom.cdk-overlay-bottom-right {
-  position: fixed !important;
-  right: 40px !important;
-  bottom: 80px !important;
-  transform: none !important;
-  z-index: 2500 !important;
+/* OVERRIDE PANEL Y CONTENIDO DEL CALENDARIO - MÁS ANCHO Y MÁS ALTO */
+.cdk-overlay-pane.mat-datepicker-popup {
+  width: 480px !important;
+  min-width: 460px !important;
+  max-width: 520px !important;
+  height: 520px !important;
+  min-height: 400px !important;
+  max-height: 600px !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+  border-radius: 12px;
 }
-.mat-datepicker-content { box-shadow: 0 6px 18px rgba(0,0,0,0.25); border-radius: 10px; overflow: hidden; }
+
+/* Contenido del calendario */
+.mat-datepicker-content {
+  width: 100% !important;
+  min-width: 460px !important;
+  max-width: 520px !important;
+  height: 520px !important;
+  min-height: 400px !important;
+  max-height: 600px !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.mat-calendar {
+  flex: 1 1 auto;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 460px !important;
+  max-width: 520px !important;
+  min-height: 320px !important;
+  max-height: 560px !important;
+}
+
+.mat-datepicker-content { 
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25); 
+  border-radius: 10px; 
+  overflow: hidden; 
+}
 
 @media (max-width: 700px) {
- 
+  /* Puedes ajustar aquí para responsive si lo necesitas */
 }
-
