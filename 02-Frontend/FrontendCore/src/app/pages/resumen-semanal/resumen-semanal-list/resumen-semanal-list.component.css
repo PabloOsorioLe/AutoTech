@@ -1,0 +1,108 @@
+.semanal-container {
+  max-width: 1000px;
+  margin: 30px auto;
+  font-family: Arial, sans-serif;
+  color: #222;
+  margin-top: 60px;
+}
+
+.tabla-semanal {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 32px;
+  background: #fff;
+  box-shadow: 0 4px 16px #f3f3f6;
+}
+
+.tabla-semanal th,
+.tabla-semanal td {
+  border: 1px solid #e0e0e0;
+  padding: 10px 8px;
+  text-align: center;
+}
+
+.tabla-semanal th {
+  background-color: #eef6fb;
+  color: #195192;
+}
+
+.tabla-semanal tr:nth-child(even) {
+  background-color: #f5fafc;
+}
+
+.card-resumen-inline {
+  background: #f8fcfe;
+  border: 1.5px solid #e6f4fa;
+  border-radius: 8px;
+  padding: 8px 7px 7px 18px;
+  min-width: 190px;
+  text-align: left;
+  display: inline-block;
+}
+
+.card-label {
+  font-weight: bold;
+  color: #2e3b6a;
+  min-width: 93px;
+  display: inline-block;
+}
+
+.card-neto {
+  color: #21781d;
+  font-weight: bold;
+}
+.card-iva {
+  color: #195192;
+  font-weight: bold;
+}
+.card-total {
+  color: #1e9e51;
+  font-weight: bold;
+  font-size: 1.12em;
+}
+
+/* ---- Widget del calendario fijo abajo derecha ---- */
+.calendar-widget-fixed {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 10px 18px 10px 10px;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(80, 80, 110, 0.07);
+  z-index: 2000;
+  min-width: 270px;
+}
+
+.calendar-fab-material {
+  margin-right: 12px;
+}
+
+.calendar-selected-date {
+  color: #37569e;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+@media (max-width: 700px) {
+  .calendar-widget-fixed {
+    right: 10px;
+    bottom: 10px;
+    flex-direction: column;
+    gap: 8px;
+    padding: 7px 9px;
+    min-width: 160px;
+  }
+  .calendar-fab-material {
+    margin-right: 0;
+    margin-bottom: 7px;
+  }
+}
+
+.selected-week .mat-calendar-body-cell-content {
+  background-color: #73c3ff !important;
+  color: white !important;
+  border-radius: 35%;
+}

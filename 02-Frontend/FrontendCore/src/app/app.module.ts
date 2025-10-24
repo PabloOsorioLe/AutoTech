@@ -11,9 +11,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 // Componentes principales
-import { ProductosComponent } from './pages/productos/productos.component';
-import { VentasComponent } from './pages/ventas/ventas.component';
-import { VentasDetallesComponent } from './pages/ventas-detalles/ventas-detalles.component';
 
 // Componentes reutilizables
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -42,9 +39,7 @@ import { environment } from '../environments/environment';
   declarations: [
     AppComponent,
     NavbarComponent,
-    ProductosComponent,
-    VentasComponent,
-    VentasDetallesComponent
+    
     // ControlMovimientoComponent NO va aquí (declararlo solo en su módulo)
   ],
   imports: [

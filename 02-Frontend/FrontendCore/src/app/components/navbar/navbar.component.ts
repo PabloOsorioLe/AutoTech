@@ -38,23 +38,26 @@ export class NavbarComponent {
       navbar.classList.toggle('show');
     }
   }
-
-  actualizarTituloYIcono(url: string) {
-    if (url.startsWith('/control-movimiento')) {
-      this.tituloActual = 'Control de Movimiento';
-      this.iconoActual = 'bi-bar-chart-steps';
-    } else if (url.startsWith('/mantenedor-tecnicos')) {
-      this.tituloActual = 'Mantenedor de Técnicos';
-      this.iconoActual = 'bi-person-lines-fill';
-    } else if (url.startsWith('/trabajos')) {
-      this.tituloActual = 'Mantenedor de Trabajos';
-      this.iconoActual = 'bi-clipboard-data';
-    } else if (url.startsWith('/cambio-aceite-filtro')) {
-      this.tituloActual = 'Aceite & Filtro';
-      this.iconoActual = 'bi-droplet-half';
-    } else {
-      this.tituloActual = 'Inicio';
-      this.iconoActual = 'bi-house';
-    }
+actualizarTituloYIcono(url: string) {
+  if (url.startsWith('/control-movimiento')) {
+    this.tituloActual = 'Control de Movimiento';
+    this.iconoActual = 'bi-bar-chart-steps';
+  } else if (url.startsWith('/mantenedor-tecnicos')) {
+    this.tituloActual = 'Mantenedor de Técnicos';
+    this.iconoActual = 'bi-person-lines-fill';
+  } else if (url.startsWith('/trabajos')) {
+    this.tituloActual = 'Mantenedor de Trabajos';
+    this.iconoActual = 'bi-clipboard-data';
+  } else if (url.startsWith('/cambio-aceite-filtro')) {
+    this.tituloActual = 'Aceite & Filtro';
+    this.iconoActual = 'bi-droplet-half';
+  } else if (url.startsWith('/resumen-semanal')) {
+    this.tituloActual = 'Resumen Semanal';
+    this.iconoActual = 'bi-calendar2-week';
+  } else {
+    this.tituloActual = 'Inicio';
+    this.iconoActual = 'bi-house';
   }
+}
+
 }
