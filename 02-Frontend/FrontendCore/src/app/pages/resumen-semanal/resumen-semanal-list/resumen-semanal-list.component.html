@@ -1,0 +1,60 @@
+<div class="semanal-container">
+  <h2>Resumen Semanal por Técnico</h2>
+  <table class="tabla-semanal">
+    <thead>
+      <tr>
+        <th style="min-width:100px">Técnico</th>
+        <th>Débito</th>
+        <th>Efectivo</th>
+        <th>Transferencia</th>
+        <th style="width:240px">Resumen</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of resumen">
+        <td>{{ t.trabajador }}</td>
+        <td>{{ t.totalDebito | number:'1.0-0' }}</td>
+        <td>{{ t.totalEfectivo | number:'1.0-0' }}</td>
+        <td>{{ t.totalTransferencia | number:'1.0-0' }}</td>
+        <td>
+          <div class="card-resumen-inline">
+            <div>
+              <span class="card-label">Neto:</span>
+              <span class="card-neto">{{ t.neto | number:'1.0-0' }}</span>
+            </div>
+            <div>
+              <span class="card-label">IVA (19%):</span>
+              <span class="card-iva">{{ t.iva | number:'1.0-0' }}</span>
+            </div>
+            <div>
+              <span class="card-label">Total + IVA:</span>
+              <span class="card-total">{{ t.total | number:'1.0-0' }}</span>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Widget flotante, ubicado abajo a la derecha por CSS -->
+<div class="calendar-widget-fixed">
+  <button mat-fab color="primary" class="calendar-fab-material" (click)="openCalendar()" #calendarButton>
+    <mat-icon>calendar_month</mat-icon>
+  </button>
+  <span class="calendar-selected-date">
+    Semana: {{ semanaInicio | date:'dd/MM/yyyy' }} al {{ semanaFin | date:'dd/MM/yyyy' }}
+  </span>
+  <input
+    matInput
+    [matDatepicker]="calendar"
+    [(ngModel)]="selectedDate"
+    (dateChange)="onDateChange($event.value)"
+    hidden
+  />
+  <mat-datepicker
+    #calendar
+    startView="month"
+    touchUi="false"
+  ></mat-datepicker>
+</div>
